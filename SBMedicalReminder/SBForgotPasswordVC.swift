@@ -9,27 +9,69 @@
 import UIKit
 
 class SBForgotPasswordVC: UIViewController {
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+//MARK: - keys
+    let kUserName = "userName"
+    let kUserPassword = "userPassword"
+    let kUserEmail = "userEmail"
+    
+//MARK: - IBOutlets
+    @IBOutlet weak var userNameTextField: UITextField!
+    @IBOutlet weak var userEmailTextField: UITextField!
+    
+//MARK: - Actions
+    @IBAction func resetAction(_ sender: UIButton) {
+        resetUserPassword()
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    func resetUserPassword() -> Void {
+        let userInfo = UserDefaults.standard
+        let userName = userInfo.string(forKey: kUserName)
+        let userEmail = userInfo.string(forKey: kUserEmail)
+        if textFieldCheckEmpty() {
+            if (userNameTextField.text == userName) && (userEmailTextField.text == userEmail) {
+                let userPassword = userInfo.string(forKey: kUserPassword)
+                errorAlertAction(message:"Your password is \(userPassword!) !")
+            } else {
+                errorAlertAction(message:"Incorrect user name or password!")
+                userEmailTextField.text = ""
+                userEmailTextField.text = ""
+            }
+        }
     }
-    */
+    
+//MARK: - TextFieldDelegate
+    func textFieldShouldReturn(_ textField:UITextField) -> Bool {
+        if textField == userNameTextField {
+            userEmailTextField.becomeFirstResponder()
+        } else {
+            textField.resignFirstResponder()
+        }
+        return true
+    }
+    
+    func textFieldCheckEmpty() -> Bool {
+        if (userNameTextField.text?.isEmpty)! {
+            errorAlertAction(message: "Enter user name!")
+            return false
+        }
+        if (userEmailTextField.text?.isEmpty)! {
+            errorAlertAction(message: "Enter user password!")
+            return false
+        }
+        return true
+    }
+    
+//MARK: - ErrorActionsDelegate
+    func errorAlertAction(message:String) -> Void {
+        let alertController = UIAlertController(title: "Error!", message: message, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default)
+        alertController.addAction(okAction)
+        present(alertController, animated: true, completion: nil)
+    }
+    
+//MARK: viewControllerDelegate
+    override func viewDidLoad() {
+        super.viewDidLoad()
+    }
 
 }

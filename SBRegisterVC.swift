@@ -13,64 +13,67 @@ class SBRegisterVC: UIViewController, UITextFieldDelegate, UIAlertViewDelegate {
     let kUserName = "userName"
     let kUserPassword = "userPassword"
     let kConfirmPassword = "confirmPassword"
-    let kuserEmail = "userEmail"
+    let kUserEmail = "userEmail"
     
 //MARK: - IBOutlets
     @IBOutlet weak var userNameTextField: UITextField! { didSet { userNameTextField.delegate = self } }
-    
     @IBOutlet weak var userPasswordTextField: UITextField! { didSet { userPasswordTextField.delegate = self } }
-    
     @IBOutlet weak var confirmPasswordTextField: UITextField! { didSet { confirmPasswordTextField.delegate = self } }
-    
     @IBOutlet weak var userEmailTextField: UITextField! { didSet { userEmailTextField.delegate = self } }
     
 //MARK: - Actions
     @IBAction func registerUserAction(_ sender: UIButton) {
-        self.registerUser()
+        registerUser()
     }
     
     func registerUser() -> Void {
         let userInfo = UserDefaults.standard;
         if self.textFieldCheckEmpty() {
-            userInfo.set(self.userNameTextField.text,           forKey: kUserName)
-            userInfo.set(self.userPasswordTextField.text,       forKey: kUserPassword)
-            userInfo.set(self.confirmPasswordTextField.text,    forKey: kConfirmPassword)
-            userInfo.set(self.userEmailTextField.text,          forKey: kuserEmail)
+            userInfo.set(userNameTextField.text,           forKey: kUserName)
+            userInfo.set(userPasswordTextField.text,       forKey: kUserPassword)
+            userInfo.set(confirmPasswordTextField.text,    forKey: kConfirmPassword)
+            userInfo.set(userEmailTextField.text,          forKey: kUserEmail)
+            let alertController = UIAlertController(title: "Error!", message: "New user successful registered!", preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "OK", style: .default) { (action:UIAlertAction!) in
+                self.dismiss(animated: true, completion: nil)
+            }
+            alertController.addAction(okAction)
+            present(alertController, animated: true, completion:nil)
+            userInfo.synchronize()
         }
-        userInfo.synchronize()
     }
     
 //MARK: - TextFieldDelegate
     func textFieldCheckEmpty() -> Bool {
-        if (self.userNameTextField.text?.isEmpty)! {
-            self.errorAlertAction(message: "Enter user name!")
+        if (userNameTextField.text?.isEmpty)! {
+            errorAlertAction(message: "Enter user name!")
             return false
         }
-        if (self.userPasswordTextField.text?.isEmpty)! {
-            self.errorAlertAction(message: "Enter user password!")
+        if (userPasswordTextField.text?.isEmpty)! {
+            errorAlertAction(message: "Enter user password!")
             return false
         }
-        if (self.confirmPasswordTextField.text?.isEmpty)! {
-            self.errorAlertAction(message: "Confirm password!")
+        if (confirmPasswordTextField.text?.isEmpty)! {
+            errorAlertAction(message: "Confirm password!")
             return false
         }
-        if (self.userEmailTextField.text?.isEmpty)! {
-            self.errorAlertAction(message: "Enter user e-mail!")
+        if (userEmailTextField.text?.isEmpty)! {
+            errorAlertAction(message: "Enter user e-mail!")
         }
-        if (self.userPasswordTextField.text != self.confirmPasswordTextField.text) {
-            self.errorAlertAction(message: "Passwords do not match! Check you passwords!")
+        if (userPasswordTextField.text != confirmPasswordTextField.text) {
+            errorAlertAction(message: "Passwords do not match! Check you passwords!")
             return false
         }
         return true
     }
     
     func textFieldShouldReturn(_ textField:UITextField) -> Bool {
-        if textField == self.userNameTextField {
-            self.userPasswordTextField.becomeFirstResponder()
-        } else if textField == self.userPasswordTextField {
-            self.confirmPasswordTextField.becomeFirstResponder()
-        } else if textField == self.confirmPasswordTextField {
-            self.userEmailTextField.becomeFirstResponder()
+        if textField == userNameTextField {
+            userPasswordTextField.becomeFirstResponder()
+        } else if textField == userPasswordTextField {
+            confirmPasswordTextField.becomeFirstResponder()
+        } else if textField == confirmPasswordTextField {
+            userEmailTextField.becomeFirstResponder()
         } else {
             textField.resignFirstResponder()
         }
@@ -82,7 +85,7 @@ class SBRegisterVC: UIViewController, UITextFieldDelegate, UIAlertViewDelegate {
         let alertController = UIAlertController(title: "Error!", message: message, preferredStyle: .alert)
         let okAction = UIAlertAction(title: "OK", style: .default)
         alertController.addAction(okAction)
-        present(alertController, animated: true, completion: nil)
+        present(alertController, animated: true, completion:nil)
     }
     
 //MARK: viewControllerDelegate
