@@ -31,7 +31,7 @@ class SBLoginVC: UIViewController, UITextFieldDelegate, UIAlertViewDelegate {
         return true
     }
     
-    func loginUser() -> Void {
+    func loginUser() {
         let userInfo = UserDefaults.standard
         let userName = userInfo.string(forKey: kUserName)
         let userPassword = userInfo.string(forKey: kUserPassword)
@@ -71,7 +71,7 @@ class SBLoginVC: UIViewController, UITextFieldDelegate, UIAlertViewDelegate {
     }
     
 //MARK: - ErrorActionsDelegate
-    func errorAlertAction(message:String) -> Void {
+    func errorAlertAction(message:String) {
         let alertController = UIAlertController(title: "Error!", message: message, preferredStyle: .alert)
         let okAction = UIAlertAction(title: "OK", style: .default)
         alertController.addAction(okAction)

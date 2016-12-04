@@ -7,9 +7,9 @@
 //
 
 import UIKit
+import CoreData
 
-class SBAddVC: UIViewController {
-    
+class SBAddVC: UIViewController, NSFetchedResultsControllerDelegate {
 //MARK: - IBOutlets
     @IBOutlet weak var medicamentName: UITextField!
     @IBOutlet weak var medicamentType: UITextField!
@@ -21,10 +21,12 @@ class SBAddVC: UIViewController {
     @IBOutlet weak var periodCourseLabel: UILabel!
     
     var timer = Timer()
+    var tempRecipeObj = SBRecipeClass()
+    
     
 //MARK: - Actions
     @IBAction func saveAction(_ sender: UIBarButtonItem) {
-        
+        saveRecipe()
     }
     
     @IBAction func periodSliderAction(_ sender: UISlider) {
@@ -69,10 +71,37 @@ class SBAddVC: UIViewController {
         present(alertController, animated: true, completion: nil)
     }
     
+//MARK: CoreDataDelegate
+    func readOutlets() -> SBRecipeClass {
+        tempRecipeObj.medicamentName = medicamentName.text!
+        tempRecipeObj.medicamentType = medicamentType.text!
+        tempRecipeObj.periodCourse = Int8(periodCourseSlider.value)
+        tempRecipeObj.timeDay = Int8(timesDaySegControl.titleForSegment(at: timesDaySegControl.selectedSegmentIndex)!)!
+        tempRecipeObj.mealCheck = mealSwitch.isOn
+        tempRecipeObj.mealTime = Int8(mealSegContol.titleForSegment(at: mealSegContol.selectedSegmentIndex)!)!
+        return tempRecipeObj
+    }
+    
+    func saveRecipe() -> Void {
+        tempRecipeObj = readOutlets()
+        let context = CoreDataManager.instance.getContext()
+        let entityDescription = NSEntityDescription.entity(forEntityName: "SBRecipeEntity", in: context)
+        var managedObject = NSManagedObject(entity: entityDescription!, insertInto: context)
+        managedObject = tempRecipeObj
+        do {
+            try CoreDataManager.instance.saveContext()
+            print("Save!")
+        }
+        catch let error as NSError {
+            print("Could not save \(error), \(error.userInfo))")
+        } catch {
+            
+        }
+    }
+    
 //MARK: viewControllerDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
         timer = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(timerClock), userInfo: nil, repeats: true)
     }
-    
 }

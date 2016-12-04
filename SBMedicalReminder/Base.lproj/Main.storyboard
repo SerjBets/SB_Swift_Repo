@@ -236,7 +236,7 @@
         <!--SBMainVC-->
         <scene sceneID="8Ym-TK-QjU">
             <objects>
-                <viewController storyboardIdentifier="SBMainVC" title="SBMainVC" id="59R-pF-Ypv" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SBMainVC" title="SBMainVC" id="59R-pF-Ypv" customClass="SBMainVC" customModule="SBMedicalReminder" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="aVA-D6-rrT"/>
                         <viewControllerLayoutGuide type="bottom" id="Fnt-OC-TMi"/>
@@ -286,8 +286,15 @@
                                 <segue destination="WJN-xg-gq8" kind="show" id="eS4-hN-Rpz"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="edit" id="Ldy-Wp-EAF"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="edit" id="Ldy-Wp-EAF">
+                            <connections>
+                                <action selector="editTableAction:" destination="59R-pF-Ypv" id="msV-lN-LZs"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="recipeTableView" destination="gEI-Kq-ZiL" id="pZE-7a-leB"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nNy-zD-dS1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

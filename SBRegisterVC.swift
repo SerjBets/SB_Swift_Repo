@@ -26,7 +26,7 @@ class SBRegisterVC: UIViewController, UITextFieldDelegate, UIAlertViewDelegate {
         registerUser()
     }
     
-    func registerUser() -> Void {
+    func registerUser() {
         let userInfo = UserDefaults.standard;
         if self.textFieldCheckEmpty() {
             userInfo.set(userNameTextField.text,           forKey: kUserName)
@@ -81,7 +81,7 @@ class SBRegisterVC: UIViewController, UITextFieldDelegate, UIAlertViewDelegate {
     }
     
 //MARK: - ErrorActionsDelegate
-    func errorAlertAction(message:String) -> Void {
+    func errorAlertAction(message:String) {
         let alertController = UIAlertController(title: "Error!", message: message, preferredStyle: .alert)
         let okAction = UIAlertAction(title: "OK", style: .default)
         alertController.addAction(okAction)
