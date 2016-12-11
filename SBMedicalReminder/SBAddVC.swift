@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class SBAddVC: UIViewController, NSFetchedResultsControllerDelegate {
+class SBAddVC: UIViewController {
 //MARK: - IBOutlets
     @IBOutlet weak var medicamentName: UITextField!
     @IBOutlet weak var medicamentType: UITextField!
@@ -21,12 +21,14 @@ class SBAddVC: UIViewController, NSFetchedResultsControllerDelegate {
     @IBOutlet weak var periodCourseLabel: UILabel!
     
     var timer = Timer()
-    var tempRecipeObj = SBRecipeClass()
+    var recipe : SBRecipe?
     
     
 //MARK: - Actions
     @IBAction func saveAction(_ sender: UIBarButtonItem) {
-        saveRecipe()
+        if textFieldCheckEmpty() {
+            saveRecipe()
+        }
     }
     
     @IBAction func periodSliderAction(_ sender: UISlider) {
@@ -34,8 +36,7 @@ class SBAddVC: UIViewController, NSFetchedResultsControllerDelegate {
         periodCourseLabel.text = temp.description
     }
     
-    
-    func timerClock() -> Void {
+    func timerClock() {
         let date = Date()
         let dateFormatter = DateFormatter.localizedString(from: date, dateStyle: .medium, timeStyle: .medium)
         timeClockLabel.text = dateFormatter
@@ -53,49 +54,55 @@ class SBAddVC: UIViewController, NSFetchedResultsControllerDelegate {
     
     func textFieldCheckEmpty() -> Bool {
         if (medicamentName.text?.isEmpty)! {
-            errorAlertAction(message: "Enter medicament name!")
+            errorAlertAction(title: "Error!", message: "Enter medicament name!")
             return false
         }
         if (medicamentType.text?.isEmpty)! {
-            errorAlertAction(message: "Enter medicament type!")
+            errorAlertAction(title: "Error!", message: "Enter medicament type!")
             return false
         }
         return true
     }
     
+    func keyboardWillShow(notification: NSNotification) {
+        
+        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            if self.view.frame.origin.y == 0 {
+                self.view.frame.origin.y -= keyboardSize.height
+            }
+        }
+    }
+    
+    func keyboardWillHide(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            if self.view.frame.origin.y != 0 {
+                self.view.frame.origin.y += keyboardSize.height
+            }
+        }
+    }
+    
 //MARK: - ErrorActionsDelegate
-    func errorAlertAction(message:String) -> Void {
-        let alertController = UIAlertController(title: "Error!", message: message, preferredStyle: .alert)
+    func errorAlertAction(title: String, message:String) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let okAction = UIAlertAction(title: "OK", style: .default)
         alertController.addAction(okAction)
         present(alertController, animated: true, completion: nil)
     }
     
 //MARK: CoreDataDelegate
-    func readOutlets() -> SBRecipeClass {
-        tempRecipeObj.medicamentName = medicamentName.text!
-        tempRecipeObj.medicamentType = medicamentType.text!
-        tempRecipeObj.periodCourse = Int8(periodCourseSlider.value)
-        tempRecipeObj.timeDay = Int8(timesDaySegControl.titleForSegment(at: timesDaySegControl.selectedSegmentIndex)!)!
-        tempRecipeObj.mealCheck = mealSwitch.isOn
-        tempRecipeObj.mealTime = Int8(mealSegContol.titleForSegment(at: mealSegContol.selectedSegmentIndex)!)!
-        return tempRecipeObj
-    }
-    
-    func saveRecipe() -> Void {
-        tempRecipeObj = readOutlets()
-        let context = CoreDataManager.instance.getContext()
-        let entityDescription = NSEntityDescription.entity(forEntityName: "SBRecipeEntity", in: context)
-        var managedObject = NSManagedObject(entity: entityDescription!, insertInto: context)
-        managedObject = tempRecipeObj
-        do {
-            try CoreDataManager.instance.saveContext()
-            print("Save!")
+    func saveRecipe() {        
+        if recipe == nil {
+            recipe = SBRecipe()
         }
-        catch let error as NSError {
-            print("Could not save \(error), \(error.userInfo))")
-        } catch {
-            
+        if let recipe = recipe {
+            recipe.medicamentName = medicamentName.text!
+            recipe.medicamentType = medicamentType.text!
+            recipe.periodCourse = Int16(periodCourseSlider.value)
+            recipe.mealCheck = mealSwitch.isOn
+            recipe.mealTime = Int16(mealSegContol.titleForSegment(at: mealSegContol.selectedSegmentIndex)!)!
+            recipe.timesDay = Int16(timesDaySegControl.titleForSegment(at: timesDaySegControl.selectedSegmentIndex)!)!
+            CoreDataManager.instance.saveContext()
+            print("Save! \(recipe.medicamentName)")
         }
     }
     
@@ -103,5 +110,14 @@ class SBAddVC: UIViewController, NSFetchedResultsControllerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         timer = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(timerClock), userInfo: nil, repeats: true)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: self.view.window)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: self.view.window)
     }
 }
+

@@ -7,8 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1E179B0C1DF44E960028EBD4 /* SBRecipeClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E179B0B1DF44E960028EBD4 /* SBRecipeClass.swift */; };
 		1E179B0E1DF4A1990028EBD4 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E179B0D1DF4A1990028EBD4 /* CoreDataManager.swift */; };
+		1E179B1E1DF4BE0D0028EBD4 /* SBRecipe+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E179B1C1DF4BE0D0028EBD4 /* SBRecipe+CoreDataClass.swift */; };
+		1E179B1F1DF4BE0D0028EBD4 /* SBRecipe+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E179B1D1DF4BE0D0028EBD4 /* SBRecipe+CoreDataProperties.swift */; };
+		1E8438241DF6FCA4001259F4 /* SBkeyboardManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E8438231DF6FCA4001259F4 /* SBkeyboardManager.swift */; };
 		1EA6E2FD1DEF83E500E80895 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1EA6E2FC1DEF83E500E80895 /* CoreData.framework */; };
 		1ED95A771DEB2C4A00DDA7A1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED95A761DEB2C4A00DDA7A1 /* AppDelegate.swift */; };
 		1ED95A7C1DEB2C4A00DDA7A1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1ED95A7A1DEB2C4A00DDA7A1 /* Main.storyboard */; };
@@ -42,8 +44,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		1E179B0B1DF44E960028EBD4 /* SBRecipeClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SBRecipeClass.swift; sourceTree = "<group>"; };
 		1E179B0D1DF4A1990028EBD4 /* CoreDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
+		1E179B1C1DF4BE0D0028EBD4 /* SBRecipe+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "SBRecipe+CoreDataClass.swift"; path = "../CoreData/SBRecipe+CoreDataClass.swift"; sourceTree = "<group>"; };
+		1E179B1D1DF4BE0D0028EBD4 /* SBRecipe+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "SBRecipe+CoreDataProperties.swift"; path = "../CoreData/SBRecipe+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		1E8438231DF6FCA4001259F4 /* SBkeyboardManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SBkeyboardManager.swift; sourceTree = "<group>"; };
 		1EA6E2FC1DEF83E500E80895 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		1ED95A731DEB2C4A00DDA7A1 /* SBMedicalReminder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SBMedicalReminder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1ED95A761DEB2C4A00DDA7A1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -58,7 +62,7 @@
 		1ED95A951DEB2C4A00DDA7A1 /* SBMedicalReminderUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SBMedicalReminderUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1ED95A991DEB2C4A00DDA7A1 /* SBMedicalReminderUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBMedicalReminderUITests.swift; sourceTree = "<group>"; };
 		1ED95A9B1DEB2C4A00DDA7A1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		1ED95AA91DEB2D0B00DDA7A1 /* SBRegisterVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SBRegisterVC.swift; path = ../SBRegisterVC.swift; sourceTree = "<group>"; };
+		1ED95AA91DEB2D0B00DDA7A1 /* SBRegisterVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SBRegisterVC.swift; sourceTree = "<group>"; };
 		1ED95AAB1DEB2D4900DDA7A1 /* SBLoginVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SBLoginVC.swift; sourceTree = "<group>"; };
 		1ED95AAD1DEB2D9000DDA7A1 /* SBForgotPasswordVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SBForgotPasswordVC.swift; sourceTree = "<group>"; };
 		1ED95AAF1DEB2DEE00DDA7A1 /* SBMainVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SBMainVC.swift; sourceTree = "<group>"; };
@@ -91,6 +95,29 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1E179B201DF4BF240028EBD4 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				1E179B1C1DF4BE0D0028EBD4 /* SBRecipe+CoreDataClass.swift */,
+				1E179B1D1DF4BE0D0028EBD4 /* SBRecipe+CoreDataProperties.swift */,
+				1E179B0D1DF4A1990028EBD4 /* CoreDataManager.swift */,
+				1ED95A7D1DEB2C4A00DDA7A1 /* SBMedicalReminder.xcdatamodeld */,
+			);
+			name = CoreData;
+			sourceTree = "<group>";
+		};
+		1E179B211DF4BF360028EBD4 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				1ED95AA91DEB2D0B00DDA7A1 /* SBRegisterVC.swift */,
+				1ED95AAB1DEB2D4900DDA7A1 /* SBLoginVC.swift */,
+				1ED95AAD1DEB2D9000DDA7A1 /* SBForgotPasswordVC.swift */,
+				1ED95AAF1DEB2DEE00DDA7A1 /* SBMainVC.swift */,
+				1ED95AB11DEB2E1B00DDA7A1 /* SBAddVC.swift */,
+			);
+			name = ViewControllers;
+			sourceTree = "<group>";
+		};
 		1EA6E2FB1DEF83E500E80895 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -124,18 +151,13 @@
 			isa = PBXGroup;
 			children = (
 				1ED95A761DEB2C4A00DDA7A1 /* AppDelegate.swift */,
-				1E179B0B1DF44E960028EBD4 /* SBRecipeClass.swift */,
-				1ED95AA91DEB2D0B00DDA7A1 /* SBRegisterVC.swift */,
-				1ED95AAB1DEB2D4900DDA7A1 /* SBLoginVC.swift */,
-				1ED95AAD1DEB2D9000DDA7A1 /* SBForgotPasswordVC.swift */,
-				1ED95AAF1DEB2DEE00DDA7A1 /* SBMainVC.swift */,
-				1ED95AB11DEB2E1B00DDA7A1 /* SBAddVC.swift */,
-				1E179B0D1DF4A1990028EBD4 /* CoreDataManager.swift */,
+				1E8438231DF6FCA4001259F4 /* SBkeyboardManager.swift */,
+				1E179B201DF4BF240028EBD4 /* CoreData */,
+				1E179B211DF4BF360028EBD4 /* ViewControllers */,
 				1ED95A7A1DEB2C4A00DDA7A1 /* Main.storyboard */,
 				1ED95A801DEB2C4A00DDA7A1 /* Assets.xcassets */,
 				1ED95A821DEB2C4A00DDA7A1 /* LaunchScreen.storyboard */,
 				1ED95A851DEB2C4A00DDA7A1 /* Info.plist */,
-				1ED95A7D1DEB2C4A00DDA7A1 /* SBMedicalReminder.xcdatamodeld */,
 			);
 			path = SBMedicalReminder;
 			sourceTree = "<group>";
@@ -293,14 +315,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				1ED95AAA1DEB2D0B00DDA7A1 /* SBRegisterVC.swift in Sources */,
-				1E179B0C1DF44E960028EBD4 /* SBRecipeClass.swift in Sources */,
 				1ED95A7F1DEB2C4A00DDA7A1 /* SBMedicalReminder.xcdatamodeld in Sources */,
 				1ED95AAC1DEB2D4900DDA7A1 /* SBLoginVC.swift in Sources */,
 				1ED95A771DEB2C4A00DDA7A1 /* AppDelegate.swift in Sources */,
 				1ED95AB01DEB2DEE00DDA7A1 /* SBMainVC.swift in Sources */,
 				1E179B0E1DF4A1990028EBD4 /* CoreDataManager.swift in Sources */,
+				1E8438241DF6FCA4001259F4 /* SBkeyboardManager.swift in Sources */,
+				1E179B1F1DF4BE0D0028EBD4 /* SBRecipe+CoreDataProperties.swift in Sources */,
 				1ED95AAE1DEB2D9000DDA7A1 /* SBForgotPasswordVC.swift in Sources */,
 				1ED95AB21DEB2E1B00DDA7A1 /* SBAddVC.swift in Sources */,
+				1E179B1E1DF4BE0D0028EBD4 /* SBRecipe+CoreDataClass.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -452,6 +476,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = SBMedicalReminder/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = iMac.SBMedicalReminder;
@@ -464,6 +489,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = SBMedicalReminder/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = iMac.SBMedicalReminder;

@@ -226,7 +226,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="59R-pF-Ypv" kind="relationship" relationship="rootViewController" id="Aht-yE-yDn"/>
+                        <segue destination="RJM-0Q-Kgp" kind="relationship" relationship="rootViewController" id="mfv-WI-o3d"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6su-cL-RtM" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -234,71 +234,55 @@
             <point key="canvasLocation" x="-444" y="474"/>
         </scene>
         <!--SBMainVC-->
-        <scene sceneID="8Ym-TK-QjU">
+        <scene sceneID="CxY-oM-oml">
             <objects>
-                <viewController storyboardIdentifier="SBMainVC" title="SBMainVC" id="59R-pF-Ypv" customClass="SBMainVC" customModule="SBMedicalReminder" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="SBMainVC" id="RJM-0Q-Kgp" customClass="SBMainVC" customModule="SBMedicalReminder" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="aVA-D6-rrT"/>
-                        <viewControllerLayoutGuide type="bottom" id="Fnt-OC-TMi"/>
+                        <viewControllerLayoutGuide type="top" id="OwD-mo-aBo"/>
+                        <viewControllerLayoutGuide type="bottom" id="eup-sW-Ieb"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="cSB-hK-nVJ">
+                    <view key="view" contentMode="scaleToFill" id="bs7-GI-bpO">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Logo" translatesAutoresizingMaskIntoConstraints="NO" id="9bR-Ou-1DG">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Logo" translatesAutoresizingMaskIntoConstraints="NO" id="t1z-wo-7tJ">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <textField opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" text="©Copyright by Sergey Bets" borderStyle="line" textAlignment="center" adjustsFontSizeToFit="NO" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="9Ue-e7-Zfr">
+                            <textField opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" text="©Copyright by Sergey Bets" borderStyle="line" textAlignment="center" adjustsFontSizeToFit="NO" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="BAE-PY-oav">
                                 <rect key="frame" x="0.0" y="647" width="375" height="20"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="375" id="if3-mX-COe"/>
-                                    <constraint firstAttribute="height" constant="20" id="ytH-OG-IOb"/>
-                                </constraints>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="gEI-Kq-ZiL">
-                                <rect key="frame" x="0.0" y="64" width="375" height="583"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="IyX-hg-qr9">
+                                <rect key="frame" x="0.0" y="35" width="375" height="612"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="375" id="JZy-ry-oAc"/>
-                                    <constraint firstAttribute="height" constant="583" id="i96-HC-Alo"/>
-                                </constraints>
+                                <connections>
+                                    <outlet property="dataSource" destination="RJM-0Q-Kgp" id="q0b-ZD-tkU"/>
+                                    <outlet property="delegate" destination="RJM-0Q-Kgp" id="y6V-Zc-ZKR"/>
+                                </connections>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstAttribute="trailing" secondItem="gEI-Kq-ZiL" secondAttribute="trailing" id="6ik-RW-sNF"/>
-                            <constraint firstItem="9Ue-e7-Zfr" firstAttribute="top" secondItem="gEI-Kq-ZiL" secondAttribute="bottom" id="KbC-NF-K2K"/>
-                            <constraint firstItem="9Ue-e7-Zfr" firstAttribute="leading" secondItem="cSB-hK-nVJ" secondAttribute="leading" id="STc-68-lwI"/>
-                            <constraint firstItem="gEI-Kq-ZiL" firstAttribute="top" secondItem="aVA-D6-rrT" secondAttribute="bottom" id="eUV-IP-GT8"/>
-                            <constraint firstItem="9Ue-e7-Zfr" firstAttribute="top" secondItem="gEI-Kq-ZiL" secondAttribute="bottom" id="ebV-3H-Ity"/>
-                            <constraint firstItem="gEI-Kq-ZiL" firstAttribute="leading" secondItem="cSB-hK-nVJ" secondAttribute="leading" id="h5R-Vh-n1H"/>
-                            <constraint firstItem="Fnt-OC-TMi" firstAttribute="top" secondItem="9Ue-e7-Zfr" secondAttribute="bottom" id="qmd-vh-PfI"/>
-                            <constraint firstAttribute="trailing" secondItem="9Ue-e7-Zfr" secondAttribute="trailing" id="slX-Gc-gWp"/>
-                        </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Your Recipes" id="sVk-yZ-p7H">
-                        <barButtonItem key="leftBarButtonItem" systemItem="add" id="pGN-VD-QqN">
+                    <navigationItem key="navigationItem" title="Your Recipes" id="6UV-tF-j3r">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="i8b-bd-Z6H">
                             <connections>
-                                <segue destination="WJN-xg-gq8" kind="show" id="eS4-hN-Rpz"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="edit" id="Ldy-Wp-EAF">
-                            <connections>
-                                <action selector="editTableAction:" destination="59R-pF-Ypv" id="msV-lN-LZs"/>
+                                <action selector="addAction:" destination="RJM-0Q-Kgp" id="sFh-gO-Kyr"/>
+                                <segue destination="WJN-xg-gq8" kind="show" identifier="sequeMainToAdd" id="10g-TF-j2T"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="recipeTableView" destination="gEI-Kq-ZiL" id="pZE-7a-leB"/>
+                        <outlet property="recipeTableView" destination="IyX-hg-qr9" id="sBK-aT-mYJ"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="nNy-zD-dS1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9Ci-yr-zsY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="253.59999999999999" y="473.6131934032984"/>
+            <point key="canvasLocation" x="276" y="473.6131934032984"/>
         </scene>
         <!--SBForgotPasswordVC-->
         <scene sceneID="pkf-YV-aoS">
@@ -550,7 +534,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fIr-Jb-6mP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1004" y="473.6131934032984"/>
+            <point key="canvasLocation" x="1004" y="474"/>
         </scene>
     </scenes>
     <resources>

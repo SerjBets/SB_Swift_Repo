@@ -9,21 +9,29 @@
 import UIKit
 import CoreData
 
-class SBMainVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class SBMainVC: UIViewController, UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate {
+    
+//CoreData keys
+    static let kMedicamentName  = "medicamentName"
+    static let kMedicamentType  = "medicamentType"
+    static let kPeriodCourse    = "periodCourse"
+    static let kTimesDay        = "timesDay"
+    static let kMealCheck       = "mealCheck"
+    static let kMealTime        = "mealTime"
+    
+    typealias Select = (SBRecipe?) -> ()
+    
+    var didSelect: Select?
+    var fetchedResultsController = CoreDataManager.instance.fetchedResultsController("SBRecipeEntity", keyForSort: kMedicamentName)
     
 //MARK: - IBOutlets
     @IBOutlet weak var recipeTableView: UITableView!
     
-    var tempRecipeObj : SBRecipeClass?
-    
 //MARK: - Actions
-    @IBAction func editTableAction(_ sender: UIBarButtonItem) {
-        //fetchRequest()
-        //recipeTableView.isEditing = true
+    @IBAction func addAction(_ sender: Any) {
+        performSegue(withIdentifier: "sequeMainToAdd", sender: nil)
     }
     
-//MARK: - CoreDataDelegate
-    var fetchedResultsController = CoreDataManager.instance.fetchedResultsController(entityName: "SBRecipeEntity", keyForSort: "medicamentName")
     
 //MARK - TableViewDataSourse
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -35,20 +43,83 @@ class SBMainVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let recipe = fetchedResultsController.object(at: indexPath) as! SBRecipeClass
+        let recipe = fetchedResultsController.object(at: indexPath) as! SBRecipe
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell")
         cell?.textLabel?.text = recipe.medicamentName
-        
         return cell!
     }
     
-//MARK: viewControllerDelegate
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            let managedObject = fetchedResultsController.object(at: indexPath) as! NSManagedObject
+            CoreDataManager.instance.managedObjectContext.delete(managedObject)
+            CoreDataManager.instance.saveContext()
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let recipe = fetchedResultsController.object(at: indexPath) as? SBRecipe
+        if let dSelect = self.didSelect {
+            dSelect(recipe)
+            dismiss(animated: true, completion: nil)
+        } else {
+            performSegue(withIdentifier: "sequeMainToAdd", sender: recipe)
+        }
+    }
+    
+//MARK: - Fetched Results Controller Delegate
+    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        if recipeTableView != nil {
+            recipeTableView.beginUpdates()
+        }
+    }
+    
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+        switch type {
+        case .insert:
+            if let indexPath = newIndexPath {
+                recipeTableView.insertRows(at: [indexPath], with: .automatic)
+            }
+        case .update:
+            if let indexPath = indexPath {
+                let recipe = fetchedResultsController.object(at: indexPath) as! SBRecipe
+                let cell = recipeTableView.cellForRow(at: indexPath)
+                cell!.textLabel?.text = recipe.medicamentName
+            }
+        case .move:
+            if let indexPath = indexPath {
+                recipeTableView.deleteRows(at: [indexPath], with: .automatic)
+            }
+            if let newIndexPath = newIndexPath {
+                recipeTableView.insertRows(at: [newIndexPath], with: .automatic)
+            }
+        case .delete:
+            if let indexPath = indexPath {
+                recipeTableView.deleteRows(at: [indexPath], with: .automatic)
+            }
+        }
+    }
+    
+    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        recipeTableView.endUpdates()
+    }
+    
+//MARK: viewControllers
     override func viewDidLoad() {
         super.viewDidLoad()
+        fetchedResultsController.delegate = self
         do {
             try fetchedResultsController.performFetch()
         } catch {
             print(error)
+        }
+    }
+    
+//MARK: - segue
+    func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "sequeMainToAdd" {
+            let controller = segue.destination as! SBAddVC
+            controller.recipe = (sender as? SBRecipe)!
         }
     }
 }
