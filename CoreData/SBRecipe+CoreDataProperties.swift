@@ -13,12 +13,12 @@ import CoreData
 extension SBRecipe {
 
     @nonobjc public class func fetchRequest() -> NSFetchRequest<SBRecipe> {
-        return NSFetchRequest<SBRecipe>(entityName: "SBRecipeEntity");
+        return NSFetchRequest<SBRecipe>(entityName: "SBRecipe");
     }
 
     @NSManaged public var mealCheck: Bool
     @NSManaged public var mealTime: Int16
-    @NSManaged public var medicamentName: String?
+    @NSManaged public var medicamentName: String!
     @NSManaged public var medicamentType: String?
     @NSManaged public var periodCourse: Int16
     @NSManaged public var timesDay: Int16

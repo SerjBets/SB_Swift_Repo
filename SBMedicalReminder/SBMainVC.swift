@@ -11,18 +11,10 @@ import CoreData
 
 class SBMainVC: UIViewController, UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate {
     
-//CoreData keys
-    static let kMedicamentName  = "medicamentName"
-    static let kMedicamentType  = "medicamentType"
-    static let kPeriodCourse    = "periodCourse"
-    static let kTimesDay        = "timesDay"
-    static let kMealCheck       = "mealCheck"
-    static let kMealTime        = "mealTime"
-    
     typealias Select = (SBRecipe?) -> ()
     
     var didSelect: Select?
-    var fetchedResultsController = CoreDataManager.instance.fetchedResultsController("SBRecipeEntity", keyForSort: kMedicamentName)
+    var fetchedResultsController = CoreDataManager.instance.fetchedResultsController(entityName: "SBRecipe", keyForSort: SBRecipe.kMedicamentName)
     
 //MARK: - IBOutlets
     @IBOutlet weak var recipeTableView: UITableView!
@@ -43,9 +35,12 @@ class SBMainVC: UIViewController, UITableViewDataSource, UITableViewDelegate, NS
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let recipe = fetchedResultsController.object(at: indexPath) as! SBRecipe
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell")
-        cell?.textLabel?.text = recipe.medicamentName
+        let recipe = fetchedResultsController.object(at: indexPath) as! NSManagedObject
+        var cell = tableView.dequeueReusableCell(withIdentifier: "Cell")
+        if (cell == nil) {
+            cell = UITableViewCell.init(style: .value1, reuseIdentifier: "Cell")
+        }
+        cell!.textLabel!.text = recipe.value(forKey: SBRecipe.kMedicamentName) as? String
         return cell!
     }
     
@@ -63,11 +58,11 @@ class SBMainVC: UIViewController, UITableViewDataSource, UITableViewDelegate, NS
             dSelect(recipe)
             dismiss(animated: true, completion: nil)
         } else {
-            performSegue(withIdentifier: "sequeMainToAdd", sender: recipe)
+            performSegue(withIdentifier: "segueRecipeInfo", sender: recipe)
         }
     }
     
-//MARK: - Fetched Results Controller Delegate
+////MARK: - Fetched Results Controller Delegate
     func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         if recipeTableView != nil {
             recipeTableView.beginUpdates()
@@ -107,6 +102,7 @@ class SBMainVC: UIViewController, UITableViewDataSource, UITableViewDelegate, NS
 //MARK: viewControllers
     override func viewDidLoad() {
         super.viewDidLoad()
+        recipeTableView = UITableView();
         fetchedResultsController.delegate = self
         do {
             try fetchedResultsController.performFetch()

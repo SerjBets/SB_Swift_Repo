@@ -9,7 +9,8 @@
 import UIKit
 import CoreData
 
-class SBAddVC: UIViewController {
+class SBAddVC: UIViewController, NSFetchedResultsControllerDelegate {
+    
 //MARK: - IBOutlets
     @IBOutlet weak var medicamentName: UITextField!
     @IBOutlet weak var medicamentType: UITextField!
@@ -21,8 +22,8 @@ class SBAddVC: UIViewController {
     @IBOutlet weak var periodCourseLabel: UILabel!
     
     var timer = Timer()
-    var recipe : SBRecipe?
-    
+    var recipe = SBRecipe()
+    var fetchedResultsController = CoreDataManager.instance.fetchedResultsController(entityName: "SBRecipe", keyForSort: SBRecipe.kMedicamentName)
     
 //MARK: - Actions
     @IBAction func saveAction(_ sender: UIBarButtonItem) {
@@ -90,26 +91,28 @@ class SBAddVC: UIViewController {
     }
     
 //MARK: CoreDataDelegate
-    func saveRecipe() {        
-        if recipe == nil {
-            recipe = SBRecipe()
-        }
-        if let recipe = recipe {
-            recipe.medicamentName = medicamentName.text!
-            recipe.medicamentType = medicamentType.text!
-            recipe.periodCourse = Int16(periodCourseSlider.value)
-            recipe.mealCheck = mealSwitch.isOn
-            recipe.mealTime = Int16(mealSegContol.titleForSegment(at: mealSegContol.selectedSegmentIndex)!)!
-            recipe.timesDay = Int16(timesDaySegControl.titleForSegment(at: timesDaySegControl.selectedSegmentIndex)!)!
-            CoreDataManager.instance.saveContext()
-            print("Save! \(recipe.medicamentName)")
-        }
+    func saveRecipe() {
+        recipe.medicamentName = medicamentName.text!
+        recipe.medicamentType = medicamentType.text!
+        recipe.periodCourse = Int16(periodCourseSlider.value)
+        recipe.mealCheck = mealSwitch.isOn
+        recipe.mealTime = Int16(mealSegContol.titleForSegment(at: mealSegContol.selectedSegmentIndex)!)!
+        recipe.timesDay = Int16(timesDaySegControl.titleForSegment(at: timesDaySegControl.selectedSegmentIndex)!)!
+        
+        CoreDataManager.instance.saveContext()
+        print("Save! \(recipe.medicamentName)")
     }
     
 //MARK: viewControllerDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
         timer = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(timerClock), userInfo: nil, repeats: true)
+        fetchedResultsController.delegate = self
+        do {
+            try fetchedResultsController.performFetch()
+        } catch {
+            print(error)
+        }
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)

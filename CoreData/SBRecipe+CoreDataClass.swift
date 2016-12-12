@@ -11,8 +11,16 @@ import CoreData
 
 @objc(SBRecipe)
 class SBRecipe: NSManagedObject {
-
+    
+//CoreData keys
+    static let kMedicamentName  = "medicamentName"
+    static let kMedicamentType  = "medicamentType"
+    static let kPeriodCourse    = "periodCourse"
+    static let kTimesDay        = "timesDay"
+    static let kMealCheck       = "mealCheck"
+    static let kMealTime        = "mealTime"
+    
     convenience init() {
-        self.init(entity: CoreDataManager.instance.entityForName("SBRecipeEntity"), insertInto: CoreDataManager.instance.managedObjectContext)
+        self.init(entity: CoreDataManager.instance.entityForName(entityName: "SBRecipe"), insertInto: CoreDataManager.instance.managedObjectContext)
     }
 }

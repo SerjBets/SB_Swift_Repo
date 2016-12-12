@@ -10,8 +10,8 @@ import UIKit
 
 class SBLoginVC: UIViewController, UITextFieldDelegate, UIAlertViewDelegate {
 //MARK: - keys
-    let kUserName = "userName";
-    let kUserPassword = "userPassword";
+    let kUserName = "userName"
+    let kUserPassword = "userPassword"
     
 //MARK: - IBOutlets
     @IBOutlet weak var userNameTextField: UITextField! { didSet { userNameTextField.delegate = self } }

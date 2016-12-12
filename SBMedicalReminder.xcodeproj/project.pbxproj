@@ -10,7 +10,6 @@
 		1E179B0E1DF4A1990028EBD4 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E179B0D1DF4A1990028EBD4 /* CoreDataManager.swift */; };
 		1E179B1E1DF4BE0D0028EBD4 /* SBRecipe+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E179B1C1DF4BE0D0028EBD4 /* SBRecipe+CoreDataClass.swift */; };
 		1E179B1F1DF4BE0D0028EBD4 /* SBRecipe+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E179B1D1DF4BE0D0028EBD4 /* SBRecipe+CoreDataProperties.swift */; };
-		1E8438241DF6FCA4001259F4 /* SBkeyboardManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E8438231DF6FCA4001259F4 /* SBkeyboardManager.swift */; };
 		1EA6E2FD1DEF83E500E80895 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1EA6E2FC1DEF83E500E80895 /* CoreData.framework */; };
 		1ED95A771DEB2C4A00DDA7A1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED95A761DEB2C4A00DDA7A1 /* AppDelegate.swift */; };
 		1ED95A7C1DEB2C4A00DDA7A1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1ED95A7A1DEB2C4A00DDA7A1 /* Main.storyboard */; };
@@ -47,7 +46,7 @@
 		1E179B0D1DF4A1990028EBD4 /* CoreDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		1E179B1C1DF4BE0D0028EBD4 /* SBRecipe+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "SBRecipe+CoreDataClass.swift"; path = "../CoreData/SBRecipe+CoreDataClass.swift"; sourceTree = "<group>"; };
 		1E179B1D1DF4BE0D0028EBD4 /* SBRecipe+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "SBRecipe+CoreDataProperties.swift"; path = "../CoreData/SBRecipe+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		1E8438231DF6FCA4001259F4 /* SBkeyboardManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SBkeyboardManager.swift; sourceTree = "<group>"; };
+		1E6744791DFDB13800E89BC1 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Platforms/iPhoneOS.platform/Developer/Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		1EA6E2FC1DEF83E500E80895 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		1ED95A731DEB2C4A00DDA7A1 /* SBMedicalReminder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SBMedicalReminder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1ED95A761DEB2C4A00DDA7A1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -121,6 +120,7 @@
 		1EA6E2FB1DEF83E500E80895 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1E6744791DFDB13800E89BC1 /* XCTest.framework */,
 				1EA6E2FC1DEF83E500E80895 /* CoreData.framework */,
 			);
 			name = Frameworks;
@@ -151,7 +151,6 @@
 			isa = PBXGroup;
 			children = (
 				1ED95A761DEB2C4A00DDA7A1 /* AppDelegate.swift */,
-				1E8438231DF6FCA4001259F4 /* SBkeyboardManager.swift */,
 				1E179B201DF4BF240028EBD4 /* CoreData */,
 				1E179B211DF4BF360028EBD4 /* ViewControllers */,
 				1ED95A7A1DEB2C4A00DDA7A1 /* Main.storyboard */,
@@ -320,7 +319,6 @@
 				1ED95A771DEB2C4A00DDA7A1 /* AppDelegate.swift in Sources */,
 				1ED95AB01DEB2DEE00DDA7A1 /* SBMainVC.swift in Sources */,
 				1E179B0E1DF4A1990028EBD4 /* CoreDataManager.swift in Sources */,
-				1E8438241DF6FCA4001259F4 /* SBkeyboardManager.swift in Sources */,
 				1E179B1F1DF4BE0D0028EBD4 /* SBRecipe+CoreDataProperties.swift in Sources */,
 				1ED95AAE1DEB2D9000DDA7A1 /* SBForgotPasswordVC.swift in Sources */,
 				1ED95AB21DEB2E1B00DDA7A1 /* SBAddVC.swift in Sources */,
