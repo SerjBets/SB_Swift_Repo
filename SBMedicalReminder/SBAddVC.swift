@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class SBAddVC: UIViewController, NSFetchedResultsControllerDelegate {
+class SBAddVC: UIViewController {
     
 //MARK: - IBOutlets
     @IBOutlet weak var medicamentName: UITextField!
@@ -23,7 +23,6 @@ class SBAddVC: UIViewController, NSFetchedResultsControllerDelegate {
     
     var timer = Timer()
     var recipe = SBRecipe()
-    var fetchedResultsController = CoreDataManager.instance.fetchedResultsController(entityName: "SBRecipe", keyForSort: SBRecipe.kMedicamentName)
     
 //MARK: - Actions
     @IBAction func saveAction(_ sender: UIBarButtonItem) {
@@ -107,12 +106,6 @@ class SBAddVC: UIViewController, NSFetchedResultsControllerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         timer = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(timerClock), userInfo: nil, repeats: true)
-        fetchedResultsController.delegate = self
-        do {
-            try fetchedResultsController.performFetch()
-        } catch {
-            print(error)
-        }
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)

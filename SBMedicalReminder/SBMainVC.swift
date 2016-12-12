@@ -13,6 +13,7 @@ class SBMainVC: UIViewController, UITableViewDataSource, UITableViewDelegate, NS
     
     typealias Select = (SBRecipe?) -> ()
     
+    var recipe = SBRecipe()
     var didSelect: Select?
     var fetchedResultsController = CoreDataManager.instance.fetchedResultsController(entityName: "SBRecipe", keyForSort: SBRecipe.kMedicamentName)
     
@@ -58,51 +59,50 @@ class SBMainVC: UIViewController, UITableViewDataSource, UITableViewDelegate, NS
             dSelect(recipe)
             dismiss(animated: true, completion: nil)
         } else {
-            performSegue(withIdentifier: "segueRecipeInfo", sender: recipe)
+            //performSegue(withIdentifier: "sequeMainToAdd", sender: recipe)
         }
     }
     
 ////MARK: - Fetched Results Controller Delegate
-    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        if recipeTableView != nil {
-            recipeTableView.beginUpdates()
-        }
-    }
-    
-    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
-        switch type {
-        case .insert:
-            if let indexPath = newIndexPath {
-                recipeTableView.insertRows(at: [indexPath], with: .automatic)
-            }
-        case .update:
-            if let indexPath = indexPath {
-                let recipe = fetchedResultsController.object(at: indexPath) as! SBRecipe
-                let cell = recipeTableView.cellForRow(at: indexPath)
-                cell!.textLabel?.text = recipe.medicamentName
-            }
-        case .move:
-            if let indexPath = indexPath {
-                recipeTableView.deleteRows(at: [indexPath], with: .automatic)
-            }
-            if let newIndexPath = newIndexPath {
-                recipeTableView.insertRows(at: [newIndexPath], with: .automatic)
-            }
-        case .delete:
-            if let indexPath = indexPath {
-                recipeTableView.deleteRows(at: [indexPath], with: .automatic)
-            }
-        }
-    }
-    
-    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        recipeTableView.endUpdates()
-    }
+//    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+//        if recipeTableView != nil {
+//            recipeTableView.beginUpdates()
+//        }
+//    }
+//    
+//    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+//        switch type {
+//        case .insert:
+//            if let indexPath = newIndexPath {
+//                recipeTableView.insertRows(at: [indexPath], with: .automatic)
+//            }
+//        case .update:
+//            if let indexPath = indexPath {
+//                let recipe = fetchedResultsController.object(at: indexPath) as! SBRecipe
+//                let cell = recipeTableView.cellForRow(at: indexPath)
+//                cell!.textLabel?.text = recipe.medicamentName
+//            }
+//        case .move:
+//            if let indexPath = indexPath {
+//                recipeTableView.deleteRows(at: [indexPath], with: .automatic)
+//            }
+//            if let newIndexPath = newIndexPath {
+//                recipeTableView.insertRows(at: [newIndexPath], with: .automatic)
+//            }
+//        case .delete:
+//            if let indexPath = indexPath {
+//                recipeTableView.deleteRows(at: [indexPath], with: .automatic)
+//            }
+//        }
+//    }
+//    
+//    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+//        recipeTableView.endUpdates()
+//    }
     
 //MARK: viewControllers
     override func viewDidLoad() {
         super.viewDidLoad()
-        recipeTableView = UITableView();
         fetchedResultsController.delegate = self
         do {
             try fetchedResultsController.performFetch()
