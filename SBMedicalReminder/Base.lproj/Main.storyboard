@@ -12,7 +12,7 @@
         <!--SBRegisterVC-->
         <scene sceneID="YWp-V9-sTk">
             <objects>
-                <viewController storyboardIdentifier="SBRegisterVC" title="SBRegisterVC" modalTransitionStyle="crossDissolve" id="VF3-x3-hnK" customClass="SBRegisterVC" customModule="SBMedicalReminder" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SBRegisterVC" title="SBRegisterVC" modalTransitionStyle="crossDissolve" id="VF3-x3-hnK" customClass="SBRegisterVC" customModule="SBMedicalReminder" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="E1X-qV-q95"/>
                         <viewControllerLayoutGuide type="bottom" id="3gr-JE-JrF"/>
@@ -122,7 +122,7 @@
         <!--SBLoginVC-->
         <scene sceneID="jEz-49-fsz">
             <objects>
-                <viewController storyboardIdentifier="SBLoginVC" title="SBLoginVC" modalTransitionStyle="crossDissolve" id="bcx-ya-g1n" customClass="SBLoginVC" customModule="SBMedicalReminder" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SBLoginVC" title="SBLoginVC" modalTransitionStyle="crossDissolve" id="bcx-ya-g1n" customClass="SBLoginVC" customModule="SBMedicalReminder" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="hmY-1d-gvz"/>
                         <viewControllerLayoutGuide type="bottom" id="k58-LI-suh"/>
@@ -233,10 +233,10 @@
             </objects>
             <point key="canvasLocation" x="-444" y="474"/>
         </scene>
-        <!--SBMainVC-->
+        <!--SBRecipesListController-->
         <scene sceneID="CxY-oM-oml">
             <objects>
-                <viewController title="SBMainVC" id="RJM-0Q-Kgp" customClass="SBMainVC" customModule="SBMedicalReminder" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="SBRecipesListController" id="RJM-0Q-Kgp" customClass="SBRecipesListController" customModule="SBMedicalReminder" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="3LU-b6-3US"/>
                         <viewControllerLayoutGuide type="bottom" id="gPt-v9-3J2"/>
@@ -272,7 +272,7 @@
                         <barButtonItem key="leftBarButtonItem" systemItem="add" id="i8b-bd-Z6H">
                             <connections>
                                 <action selector="addAction:" destination="RJM-0Q-Kgp" id="sFh-gO-Kyr"/>
-                                <segue destination="WJN-xg-gq8" kind="show" identifier="sequeMainToAdd" id="10g-TF-j2T"/>
+                                <segue destination="WJN-xg-gq8" kind="show" identifier="sequeListToAdd" id="10g-TF-j2T"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -288,7 +288,7 @@
         <!--SBForgotPasswordVC-->
         <scene sceneID="pkf-YV-aoS">
             <objects>
-                <viewController storyboardIdentifier="SBForgotPasswordVC" title="SBForgotPasswordVC" modalTransitionStyle="crossDissolve" id="R9p-ld-05b" customClass="SBForgotPasswordVC" customModule="SBMedicalReminder" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SBForgotPasswordVC" title="SBForgotPasswordVC" modalTransitionStyle="crossDissolve" id="R9p-ld-05b" customClass="SBForgotPasswordVC" customModule="SBMedicalReminder" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Vgy-MX-WGd"/>
                         <viewControllerLayoutGuide type="bottom" id="aMy-JW-RTE"/>
@@ -396,10 +396,10 @@
             </objects>
             <point key="canvasLocation" x="1052" y="-286"/>
         </scene>
-        <!--SBAddVC-->
+        <!--SBAddRecipeController-->
         <scene sceneID="Job-I0-COE">
             <objects>
-                <viewController storyboardIdentifier="SBAddVC" title="SBAddVC" id="WJN-xg-gq8" customClass="SBAddVC" customModule="SBMedicalReminder" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SBAddVC" title="SBAddRecipeController" id="WJN-xg-gq8" customClass="SBAddRecipeController" customModule="SBMedicalReminder" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="aHO-0E-dg1"/>
                         <viewControllerLayoutGuide type="bottom" id="Sxm-Xq-qNm"/>
@@ -537,6 +537,7 @@
                         <barButtonItem key="rightBarButtonItem" systemItem="save" id="C3i-Xn-1Ic">
                             <connections>
                                 <action selector="saveAction:" destination="WJN-xg-gq8" id="Kae-bg-hEW"/>
+                                <segue destination="RJM-0Q-Kgp" kind="show" identifier="segueAddToList" id="Hw5-RR-RZ7"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -553,7 +554,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fIr-Jb-6mP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1052" y="474"/>
+            <point key="canvasLocation" x="1052" y="466"/>
         </scene>
     </scenes>
     <resources>
@@ -561,5 +562,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="ZiE-tk-9F6"/>
+        <segue reference="Hw5-RR-RZ7"/>
     </inferredMetricsTieBreakers>
 </document>

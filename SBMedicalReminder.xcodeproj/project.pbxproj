@@ -21,8 +21,8 @@
 		1ED95AAA1DEB2D0B00DDA7A1 /* SBRegisterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED95AA91DEB2D0B00DDA7A1 /* SBRegisterVC.swift */; };
 		1ED95AAC1DEB2D4900DDA7A1 /* SBLoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED95AAB1DEB2D4900DDA7A1 /* SBLoginVC.swift */; };
 		1ED95AAE1DEB2D9000DDA7A1 /* SBForgotPasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED95AAD1DEB2D9000DDA7A1 /* SBForgotPasswordVC.swift */; };
-		1ED95AB01DEB2DEE00DDA7A1 /* SBMainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED95AAF1DEB2DEE00DDA7A1 /* SBMainVC.swift */; };
-		1ED95AB21DEB2E1B00DDA7A1 /* SBAddVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED95AB11DEB2E1B00DDA7A1 /* SBAddVC.swift */; };
+		1ED95AB01DEB2DEE00DDA7A1 /* SBRecipesListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED95AAF1DEB2DEE00DDA7A1 /* SBRecipesListController.swift */; };
+		1ED95AB21DEB2E1B00DDA7A1 /* SBAddRecipeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED95AB11DEB2E1B00DDA7A1 /* SBAddRecipeController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,8 +64,8 @@
 		1ED95AA91DEB2D0B00DDA7A1 /* SBRegisterVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SBRegisterVC.swift; sourceTree = "<group>"; };
 		1ED95AAB1DEB2D4900DDA7A1 /* SBLoginVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SBLoginVC.swift; sourceTree = "<group>"; };
 		1ED95AAD1DEB2D9000DDA7A1 /* SBForgotPasswordVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SBForgotPasswordVC.swift; sourceTree = "<group>"; };
-		1ED95AAF1DEB2DEE00DDA7A1 /* SBMainVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SBMainVC.swift; sourceTree = "<group>"; };
-		1ED95AB11DEB2E1B00DDA7A1 /* SBAddVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SBAddVC.swift; sourceTree = "<group>"; };
+		1ED95AAF1DEB2DEE00DDA7A1 /* SBRecipesListController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SBRecipesListController.swift; sourceTree = "<group>"; };
+		1ED95AB11DEB2E1B00DDA7A1 /* SBAddRecipeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SBAddRecipeController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,16 +105,23 @@
 			name = CoreData;
 			sourceTree = "<group>";
 		};
-		1E179B211DF4BF360028EBD4 /* ViewControllers */ = {
+		1E179B211DF4BF360028EBD4 /* Recipes ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				1ED95AAF1DEB2DEE00DDA7A1 /* SBRecipesListController.swift */,
+				1ED95AB11DEB2E1B00DDA7A1 /* SBAddRecipeController.swift */,
+			);
+			name = "Recipes ViewControllers";
+			sourceTree = "<group>";
+		};
+		1E6C07491DFF143300F8FA98 /* Login ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
 				1ED95AA91DEB2D0B00DDA7A1 /* SBRegisterVC.swift */,
 				1ED95AAB1DEB2D4900DDA7A1 /* SBLoginVC.swift */,
 				1ED95AAD1DEB2D9000DDA7A1 /* SBForgotPasswordVC.swift */,
-				1ED95AAF1DEB2DEE00DDA7A1 /* SBMainVC.swift */,
-				1ED95AB11DEB2E1B00DDA7A1 /* SBAddVC.swift */,
 			);
-			name = ViewControllers;
+			name = "Login ViewControllers";
 			sourceTree = "<group>";
 		};
 		1EA6E2FB1DEF83E500E80895 /* Frameworks */ = {
@@ -151,8 +158,9 @@
 			isa = PBXGroup;
 			children = (
 				1ED95A761DEB2C4A00DDA7A1 /* AppDelegate.swift */,
+				1E6C07491DFF143300F8FA98 /* Login ViewControllers */,
+				1E179B211DF4BF360028EBD4 /* Recipes ViewControllers */,
 				1E179B201DF4BF240028EBD4 /* CoreData */,
-				1E179B211DF4BF360028EBD4 /* ViewControllers */,
 				1ED95A7A1DEB2C4A00DDA7A1 /* Main.storyboard */,
 				1ED95A801DEB2C4A00DDA7A1 /* Assets.xcassets */,
 				1ED95A821DEB2C4A00DDA7A1 /* LaunchScreen.storyboard */,
@@ -317,11 +325,11 @@
 				1ED95A7F1DEB2C4A00DDA7A1 /* SBMedicalReminder.xcdatamodeld in Sources */,
 				1ED95AAC1DEB2D4900DDA7A1 /* SBLoginVC.swift in Sources */,
 				1ED95A771DEB2C4A00DDA7A1 /* AppDelegate.swift in Sources */,
-				1ED95AB01DEB2DEE00DDA7A1 /* SBMainVC.swift in Sources */,
+				1ED95AB01DEB2DEE00DDA7A1 /* SBRecipesListController.swift in Sources */,
 				1E179B0E1DF4A1990028EBD4 /* CoreDataManager.swift in Sources */,
 				1E179B1F1DF4BE0D0028EBD4 /* SBRecipe+CoreDataProperties.swift in Sources */,
 				1ED95AAE1DEB2D9000DDA7A1 /* SBForgotPasswordVC.swift in Sources */,
-				1ED95AB21DEB2E1B00DDA7A1 /* SBAddVC.swift in Sources */,
+				1ED95AB21DEB2E1B00DDA7A1 /* SBAddRecipeController.swift in Sources */,
 				1E179B1E1DF4BE0D0028EBD4 /* SBRecipe+CoreDataClass.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

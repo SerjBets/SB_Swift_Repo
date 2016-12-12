@@ -3,7 +3,7 @@
     <entity name="SBRecipe" representedClassName=".SBRecipe" syncable="YES">
         <attribute name="mealCheck" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="mealTime" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="medicamentName" attributeType="String" syncable="YES"/>
+        <attribute name="medicamentName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="medicamentType" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="periodCourse" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="timesDay" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>

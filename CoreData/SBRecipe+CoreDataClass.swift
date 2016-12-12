@@ -9,7 +9,7 @@
 import Foundation
 import CoreData
 
-@objc(SBRecipe)
+//@objc(SBRecipe)
 class SBRecipe: NSManagedObject {
     
 //CoreData keys

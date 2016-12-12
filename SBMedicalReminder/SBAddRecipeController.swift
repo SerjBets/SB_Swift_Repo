@@ -1,5 +1,5 @@
 //
-//  SBAddVC.swift
+//  SBAddRecipeController.swift
 //  SBMedicalReminder
 //
 //  Created by Сергей Бец on 27.11.16.
@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class SBAddVC: UIViewController {
+class SBAddRecipeController: UIViewController {
     
 //MARK: - IBOutlets
     @IBOutlet weak var medicamentName: UITextField!
@@ -22,12 +22,14 @@ class SBAddVC: UIViewController {
     @IBOutlet weak var periodCourseLabel: UILabel!
     
     var timer = Timer()
-    var recipe = SBRecipe()
+    var recipe : SBRecipe?
+    
     
 //MARK: - Actions
     @IBAction func saveAction(_ sender: UIBarButtonItem) {
         if textFieldCheckEmpty() {
             saveRecipe()
+            dismiss(animated: true, completion: nil)
         }
     }
     
@@ -36,10 +38,41 @@ class SBAddVC: UIViewController {
         periodCourseLabel.text = temp.description
     }
     
-    func timerClock() {
-        let date = Date()
-        let dateFormatter = DateFormatter.localizedString(from: date, dateStyle: .medium, timeStyle: .medium)
-        timeClockLabel.text = dateFormatter
+//MARK: CoreDataDelegate
+    func saveRecipe() {
+        if recipe == nil {
+            recipe = SBRecipe()
+        } else {
+            recipe?.medicamentName = medicamentName.text!
+            recipe?.medicamentType = medicamentType.text!
+            CoreDataManager.instance.saveContext()
+        }
+        
+//        recipe?.medicamentName = medicamentName.text!
+//        recipe?.medicamentType = medicamentType.text!
+//        recipe?.periodCourse = Int16(periodCourseSlider.value)
+//        recipe?.mealCheck = mealSwitch.isOn
+//        recipe?.mealTime = Int16(mealSegContol.titleForSegment(at: mealSegContol.selectedSegmentIndex)!)!
+//        recipe?.timesDay = Int16(timesDaySegControl.titleForSegment(at: timesDaySegControl.selectedSegmentIndex)!)!
+//        
+//        CoreDataManager.instance.saveContext()
+//        print("Save! \(recipe)")
+    }
+    
+//MARK: viewControllerDelegate
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        timer = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(timerClock), userInfo: nil, repeats: true)
+        
+        //Notifications addObserver
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        //Notifications removeObserver
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: self.view.window)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: self.view.window)
     }
     
 //MARK: - TextFieldDelegate
@@ -89,31 +122,21 @@ class SBAddVC: UIViewController {
         present(alertController, animated: true, completion: nil)
     }
     
-//MARK: CoreDataDelegate
-    func saveRecipe() {
-        recipe.medicamentName = medicamentName.text!
-        recipe.medicamentType = medicamentType.text!
-        recipe.periodCourse = Int16(periodCourseSlider.value)
-        recipe.mealCheck = mealSwitch.isOn
-        recipe.mealTime = Int16(mealSegContol.titleForSegment(at: mealSegContol.selectedSegmentIndex)!)!
-        recipe.timesDay = Int16(timesDaySegControl.titleForSegment(at: timesDaySegControl.selectedSegmentIndex)!)!
-        
-        CoreDataManager.instance.saveContext()
-        print("Save! \(recipe.medicamentName)")
+//MARK: - Timer
+    func timerClock() {
+        let date = Date()
+        let dateFormatter = DateFormatter.localizedString(from: date, dateStyle: .medium, timeStyle: .medium)
+        timeClockLabel.text = dateFormatter
     }
     
-//MARK: viewControllerDelegate
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        timer = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(timerClock), userInfo: nil, repeats: true)
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: self.view.window)
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: self.view.window)
+//MARK: - segue
+    func prepareForSegue(segue: UIStoryboardSegue, sender: SBRecipe?) {
+        if segue.identifier == SBRecipesListController.segueIdentifierAddToList {
+            _ = segue.destination as! SBAddRecipeController
+        }
+        if segue.identifier == SBRecipesListController.segueIdentifierRecipeInfo {
+            
+        }
     }
 }
 
