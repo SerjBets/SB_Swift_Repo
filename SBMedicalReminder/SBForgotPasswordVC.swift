@@ -8,15 +8,16 @@
 
 import UIKit
 
-class SBForgotPasswordVC: UIViewController {
+class SBForgotPasswordVC: UIViewController, UITextFieldDelegate {
 //MARK: - keys
     let kUserName = "userName"
     let kUserPassword = "userPassword"
     let kUserEmail = "userEmail"
     
 //MARK: - IBOutlets
-    @IBOutlet weak var userNameTextField: UITextField!
-    @IBOutlet weak var userEmailTextField: UITextField!
+    @IBOutlet weak var userNameTextField: UITextField! { didSet { userNameTextField.delegate = self } }
+    @IBOutlet weak var userEmailTextField: UITextField! { didSet { userEmailTextField.delegate = self } }
+
     
 //MARK: - Actions
     @IBAction func resetAction(_ sender: UIButton) {

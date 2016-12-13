@@ -81,16 +81,7 @@ class SBLoginVC: UIViewController, UITextFieldDelegate, UIAlertViewDelegate {
 //MARK: viewControllerDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        //Notifications addObserver
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        //Notifications removeObserver
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: self.view.window)
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: self.view.window)
+
     }
     
     override func viewWillLayoutSubviews() {
@@ -98,23 +89,6 @@ class SBLoginVC: UIViewController, UITextFieldDelegate, UIAlertViewDelegate {
             let mainVC = storyboard?.instantiateViewController(withIdentifier: "SBNavigationVC")
             let appDelegate = UIApplication.shared.delegate as! AppDelegate
             appDelegate.window?.rootViewController = mainVC
-        }
-    }
-    
-    func keyboardWillShow(notification: NSNotification) {
-        
-        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
-            if self.view.frame.origin.y == 0 {
-                self.view.frame.origin.y -= keyboardSize.height
-            }
-        }
-    }
-    
-    func keyboardWillHide(notification: NSNotification) {
-        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
-            if self.view.frame.origin.y != 0 {
-                self.view.frame.origin.y += keyboardSize.height
-            }
         }
     }
 }
