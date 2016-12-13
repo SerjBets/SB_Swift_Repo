@@ -47,19 +47,50 @@ class SBRecipesListController: UIViewController, UITableViewDataSource, UITableV
         }
     }
     
+    //Read CoreData to TableView
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell = recipeTableView.dequeueReusableCell(withIdentifier: SBRecipesListController.cellReuseIdentifier)
         if (cell == nil) {
             cell = UITableViewCell.init(style: .value1, reuseIdentifier: SBRecipesListController.cellReuseIdentifier)
         }
         let recipe = fetchedResultsController.object(at: indexPath) as! SBRecipe
+        let date = daysBetweenDates(startDate: Date(), endDate: recipe.date as! Date)
         cell?.textLabel?.text = recipe.medicamentName
-        cell?.detailTextLabel?.text = recipe.medicamentType
+        cell?.detailTextLabel?.text = String("\(date) days")
         return cell!
+    }
+    
+    //Select row
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let recipe = fetchedResultsController.object(at: indexPath) as! SBRecipe
+        performSegue(withIdentifier: SBRecipesListController.segueIdentifierRecipeInfo, sender: recipe)
+    }
+    
+    //Delete row
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        switch editingStyle {
+        case .delete:
+            let recipe = fetchedResultsController.object(at: indexPath) as! SBRecipe
+            CoreDataManager.instance.managedObjectContext.delete(recipe)
+            CoreDataManager.instance.saveContext()
+        default: break
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
     }
     
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         recipeTableView.reloadData()
+    }
+    
+    //Calculate how many days between 2 dates
+    func daysBetweenDates(startDate: Date, endDate: Date) -> Int
+    {
+        let calendar = NSCalendar.current
+        let components = calendar.dateComponents([Calendar.Component.day], from: startDate, to: endDate)
+        return components.day!
     }
     
 //MARK: viewControllers
@@ -74,12 +105,14 @@ class SBRecipesListController: UIViewController, UITableViewDataSource, UITableV
     }
     
 //MARK: - segue
-    func prepareForSegue(segue: UIStoryboardSegue, sender: SBRecipe?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == SBRecipesListController.segueIdentifireListToAdd {
             _ = segue.destination as! SBAddRecipeController
         }
         if segue.identifier == SBRecipesListController.segueIdentifierRecipeInfo {
-            
+            let controller = segue.destination as! SBRecipeInfoController
+            let recipeInfo = sender as! SBRecipe
+            controller.recipeInfo = recipeInfo
         }
     }
 }

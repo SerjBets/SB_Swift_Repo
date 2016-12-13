@@ -48,6 +48,7 @@ class SBAddRecipeController: UIViewController {
         newRecipe.mealCheck = mealSwitch.isOn
         newRecipe.mealTime = Int16(mealSegContol.titleForSegment(at: mealSegContol.selectedSegmentIndex)!)!
         newRecipe.timesDay = Int16(timesDaySegControl.titleForSegment(at: timesDaySegControl.selectedSegmentIndex)!)!
+        newRecipe.date = NSDate()
 
         CoreDataManager.instance.saveContext()
     }

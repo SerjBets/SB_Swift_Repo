@@ -9,7 +9,9 @@
 /* Begin PBXBuildFile section */
 		1E179B0E1DF4A1990028EBD4 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E179B0D1DF4A1990028EBD4 /* CoreDataManager.swift */; };
 		1E179B1E1DF4BE0D0028EBD4 /* SBRecipe+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E179B1C1DF4BE0D0028EBD4 /* SBRecipe+CoreDataClass.swift */; };
-		1E179B1F1DF4BE0D0028EBD4 /* SBRecipe+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E179B1D1DF4BE0D0028EBD4 /* SBRecipe+CoreDataProperties.swift */; };
+		1E6C074F1DFFFF8500F8FA98 /* SBRecipe+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6C074E1DFFFF8500F8FA98 /* SBRecipe+CoreDataProperties.swift */; };
+		1E6C07511E00059A00F8FA98 /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E6C07501E00059A00F8FA98 /* EventKit.framework */; };
+		1E7037F41E000DF10060FA86 /* SBRecipeInfoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E7037F31E000DF10060FA86 /* SBRecipeInfoController.swift */; };
 		1EA6E2FD1DEF83E500E80895 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1EA6E2FC1DEF83E500E80895 /* CoreData.framework */; };
 		1ED95A771DEB2C4A00DDA7A1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED95A761DEB2C4A00DDA7A1 /* AppDelegate.swift */; };
 		1ED95A7C1DEB2C4A00DDA7A1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1ED95A7A1DEB2C4A00DDA7A1 /* Main.storyboard */; };
@@ -45,8 +47,10 @@
 /* Begin PBXFileReference section */
 		1E179B0D1DF4A1990028EBD4 /* CoreDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		1E179B1C1DF4BE0D0028EBD4 /* SBRecipe+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "SBRecipe+CoreDataClass.swift"; path = "../CoreData/SBRecipe+CoreDataClass.swift"; sourceTree = "<group>"; };
-		1E179B1D1DF4BE0D0028EBD4 /* SBRecipe+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "SBRecipe+CoreDataProperties.swift"; path = "../CoreData/SBRecipe+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		1E6744791DFDB13800E89BC1 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Platforms/iPhoneOS.platform/Developer/Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		1E6C074E1DFFFF8500F8FA98 /* SBRecipe+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "SBRecipe+CoreDataProperties.swift"; path = "../CoreData/SBRecipe+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		1E6C07501E00059A00F8FA98 /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = System/Library/Frameworks/EventKit.framework; sourceTree = SDKROOT; };
+		1E7037F31E000DF10060FA86 /* SBRecipeInfoController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SBRecipeInfoController.swift; sourceTree = "<group>"; };
 		1EA6E2FC1DEF83E500E80895 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		1ED95A731DEB2C4A00DDA7A1 /* SBMedicalReminder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SBMedicalReminder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1ED95A761DEB2C4A00DDA7A1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -73,6 +77,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1E6C07511E00059A00F8FA98 /* EventKit.framework in Frameworks */,
 				1EA6E2FD1DEF83E500E80895 /* CoreData.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -98,7 +103,7 @@
 			isa = PBXGroup;
 			children = (
 				1E179B1C1DF4BE0D0028EBD4 /* SBRecipe+CoreDataClass.swift */,
-				1E179B1D1DF4BE0D0028EBD4 /* SBRecipe+CoreDataProperties.swift */,
+				1E6C074E1DFFFF8500F8FA98 /* SBRecipe+CoreDataProperties.swift */,
 				1E179B0D1DF4A1990028EBD4 /* CoreDataManager.swift */,
 				1ED95A7D1DEB2C4A00DDA7A1 /* SBMedicalReminder.xcdatamodeld */,
 			);
@@ -110,6 +115,7 @@
 			children = (
 				1ED95AAF1DEB2DEE00DDA7A1 /* SBRecipesListController.swift */,
 				1ED95AB11DEB2E1B00DDA7A1 /* SBAddRecipeController.swift */,
+				1E7037F31E000DF10060FA86 /* SBRecipeInfoController.swift */,
 			);
 			name = "Recipes ViewControllers";
 			sourceTree = "<group>";
@@ -127,6 +133,7 @@
 		1EA6E2FB1DEF83E500E80895 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1E6C07501E00059A00F8FA98 /* EventKit.framework */,
 				1E6744791DFDB13800E89BC1 /* XCTest.framework */,
 				1EA6E2FC1DEF83E500E80895 /* CoreData.framework */,
 			);
@@ -327,10 +334,11 @@
 				1ED95A771DEB2C4A00DDA7A1 /* AppDelegate.swift in Sources */,
 				1ED95AB01DEB2DEE00DDA7A1 /* SBRecipesListController.swift in Sources */,
 				1E179B0E1DF4A1990028EBD4 /* CoreDataManager.swift in Sources */,
-				1E179B1F1DF4BE0D0028EBD4 /* SBRecipe+CoreDataProperties.swift in Sources */,
+				1E6C074F1DFFFF8500F8FA98 /* SBRecipe+CoreDataProperties.swift in Sources */,
 				1ED95AAE1DEB2D9000DDA7A1 /* SBForgotPasswordVC.swift in Sources */,
 				1ED95AB21DEB2E1B00DDA7A1 /* SBAddRecipeController.swift in Sources */,
 				1E179B1E1DF4BE0D0028EBD4 /* SBRecipe+CoreDataClass.swift in Sources */,
+				1E7037F41E000DF10060FA86 /* SBRecipeInfoController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

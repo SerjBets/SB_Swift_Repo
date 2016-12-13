@@ -2,7 +2,7 @@
 //  SBRecipe+CoreDataProperties.swift
 //  SBMedicalReminder
 //
-//  Created by Сергей Бец on 04.12.16.
+//  Created by Сергей Бец on 13.12.16.
 //  Copyright © 2016 Сергей Бец. All rights reserved.
 //
 
@@ -22,5 +22,6 @@ extension SBRecipe {
     @NSManaged public var medicamentType: String?
     @NSManaged public var periodCourse: Int16
     @NSManaged public var timesDay: Int16
+    @NSManaged public var date: NSDate?
 
 }
