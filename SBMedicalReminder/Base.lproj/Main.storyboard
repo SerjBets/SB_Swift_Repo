@@ -275,8 +275,14 @@
                                 <segue destination="WJN-xg-gq8" kind="show" identifier="sequeListToAdd" id="10g-TF-j2T"/>
                             </connections>
                         </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Edit" id="gGZ-fm-Clw">
+                            <connections>
+                                <action selector="editAction:" destination="RJM-0Q-Kgp" id="q49-PA-pid"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="editButton" destination="gGZ-fm-Clw" id="aoV-1c-Yin"/>
                         <outlet property="recipeTableView" destination="IyX-hg-qr9" id="sBK-aT-mYJ"/>
                         <segue destination="DVX-SG-cyJ" kind="show" identifier="segueRecipeInfo" id="A6X-ro-qe3"/>
                     </connections>
@@ -537,7 +543,6 @@
                         <barButtonItem key="rightBarButtonItem" systemItem="save" id="C3i-Xn-1Ic">
                             <connections>
                                 <action selector="saveAction:" destination="WJN-xg-gq8" id="Kae-bg-hEW"/>
-                                <segue destination="RJM-0Q-Kgp" kind="show" identifier="segueAddToList" id="Hw5-RR-RZ7"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -550,6 +555,7 @@
                         <outlet property="periodCourseSlider" destination="sZH-0f-okY" id="4Rt-xp-ILH"/>
                         <outlet property="timeClockLabel" destination="Qyr-j5-Ioe" id="c7d-6Q-n3L"/>
                         <outlet property="timesDaySegControl" destination="cFe-Qp-9MJ" id="Lzz-90-LLC"/>
+                        <segue destination="RJM-0Q-Kgp" kind="show" identifier="segueAddToList" id="ZUU-Eu-YOb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fIr-Jb-6mP" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -562,6 +568,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="ZiE-tk-9F6"/>
-        <segue reference="Hw5-RR-RZ7"/>
+        <segue reference="ZUU-Eu-YOb"/>
     </inferredMetricsTieBreakers>
 </document>

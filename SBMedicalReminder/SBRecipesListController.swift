@@ -11,9 +11,6 @@ import CoreData
 
 class SBRecipesListController: UIViewController, UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate {
     
-    typealias Select = (SBRecipe?) -> ()
-    var didSelect: Select?
-    
     static let cellReuseIdentifier = "RecipeCell"
     static let segueIdentifireListToAdd = "sequeListToAdd"
     static let segueIdentifierRecipeInfo = "segueRecipeInfo"
@@ -23,12 +20,23 @@ class SBRecipesListController: UIViewController, UITableViewDataSource, UITableV
     
 //MARK: - IBOutlets
     @IBOutlet weak var recipeTableView: UITableView!
+    @IBOutlet weak var editButton: UIBarButtonItem!
     
 //MARK: - Actions
     @IBAction func addAction(_ sender: Any) {
         performSegue(withIdentifier: SBRecipesListController.segueIdentifierAddToList, sender: nil)
     }
-    
+    @IBAction func editAction(_ sender: UIBarButtonItem) {
+        if recipeTableView.isEditing {
+            recipeTableView.isEditing = false;
+            editButton.style = UIBarButtonItemStyle.plain;
+            editButton.title = "Edit"
+        } else {
+            recipeTableView.isEditing = true
+            editButton.style =  UIBarButtonItemStyle.done;
+            editButton.title = "Done"
+        }
+    }
     
 //MARK - TableViewDataSourse
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -39,71 +47,19 @@ class SBRecipesListController: UIViewController, UITableViewDataSource, UITableV
         }
     }
     
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            let managedObject = fetchedResultsController.object(at: indexPath) as! NSManagedObject
-            CoreDataManager.instance.managedObjectContext.delete(managedObject)
-            CoreDataManager.instance.saveContext()
-        }
-    }
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var cell = tableView.dequeueReusableCell(withIdentifier: SBRecipesListController.cellReuseIdentifier)
+        var cell = recipeTableView.dequeueReusableCell(withIdentifier: SBRecipesListController.cellReuseIdentifier)
         if (cell == nil) {
             cell = UITableViewCell.init(style: .value1, reuseIdentifier: SBRecipesListController.cellReuseIdentifier)
         }
-        configureCell(cell: cell!, atIndexPath: indexPath as NSIndexPath)
+        let recipe = fetchedResultsController.object(at: indexPath) as! SBRecipe
+        cell?.textLabel?.text = recipe.medicamentName
+        cell?.detailTextLabel?.text = recipe.medicamentType
         return cell!
     }
     
-    func configureCell(cell: UITableViewCell, atIndexPath indexPath: NSIndexPath) {
-        let recipe = fetchedResultsController.object(at: indexPath as IndexPath) as! SBRecipe
-        cell.textLabel?.text = recipe.medicamentName
-        //cell!.textLabel!.text = recipe.value(forKey: SBRecipe.kMedicamentName) as? String
-    }
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let recipe = fetchedResultsController.object(at: indexPath as IndexPath) as! SBRecipe
-        if let dSelect = self.didSelect {
-            dSelect(recipe)
-            dismiss(animated: true, completion: nil)
-        } else {
-            performSegue(withIdentifier: SBRecipesListController.segueIdentifierRecipeInfo, sender: recipe)
-        }
-    }
-    
-    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
-        switch(type) {
-        case .insert:
-            if let newIndexPath = newIndexPath {
-                recipeTableView.insertRows(at: [newIndexPath as IndexPath], with:UITableViewRowAnimation.fade)
-            }
-        case .delete:
-            if let indexPath = indexPath {
-                recipeTableView.deleteRows(at: [indexPath as IndexPath], with: UITableViewRowAnimation.fade)
-            }
-        case .update:
-            if let indexPath = indexPath {
-                if let cell = recipeTableView.cellForRow(at: indexPath as IndexPath) {
-                    configureCell(cell: cell, atIndexPath: indexPath as NSIndexPath)
-                }
-            }
-        case .move:
-            if let indexPath = indexPath {
-                if let newIndexPath = newIndexPath {
-                    recipeTableView.deleteRows(at: [indexPath as IndexPath], with: UITableViewRowAnimation.fade)
-                    recipeTableView.insertRows(at: [newIndexPath as IndexPath], with: UITableViewRowAnimation.fade)
-                }
-            }
-        }
-        recipeTableView.reloadData()
-    }
-    
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        recipeTableView.endUpdates()
-    }
-    
-    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        recipeTableView.beginUpdates()
+        recipeTableView.reloadData()
     }
     
 //MARK: viewControllers
@@ -120,11 +76,11 @@ class SBRecipesListController: UIViewController, UITableViewDataSource, UITableV
 //MARK: - segue
     func prepareForSegue(segue: UIStoryboardSegue, sender: SBRecipe?) {
         if segue.identifier == SBRecipesListController.segueIdentifireListToAdd {
-            let controller = segue.destination as! SBAddRecipeController
-            controller.recipe = sender
+            _ = segue.destination as! SBAddRecipeController
         }
         if segue.identifier == SBRecipesListController.segueIdentifierRecipeInfo {
             
         }
     }
 }
+

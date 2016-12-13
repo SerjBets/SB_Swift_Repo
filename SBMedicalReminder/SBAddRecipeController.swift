@@ -22,14 +22,13 @@ class SBAddRecipeController: UIViewController {
     @IBOutlet weak var periodCourseLabel: UILabel!
     
     var timer = Timer()
-    var recipe : SBRecipe?
-    
+    //var recipe : SBRecipe?
     
 //MARK: - Actions
     @IBAction func saveAction(_ sender: UIBarButtonItem) {
         if textFieldCheckEmpty() {
             saveRecipe()
-            dismiss(animated: true, completion: nil)
+            performSegue(withIdentifier: SBRecipesListController.segueIdentifierAddToList, sender: nil)
         }
     }
     
@@ -40,23 +39,17 @@ class SBAddRecipeController: UIViewController {
     
 //MARK: CoreDataDelegate
     func saveRecipe() {
-        if recipe == nil {
-            recipe = SBRecipe()
-        } else {
-            recipe?.medicamentName = medicamentName.text!
-            recipe?.medicamentType = medicamentType.text!
-            CoreDataManager.instance.saveContext()
-        }
-        
-//        recipe?.medicamentName = medicamentName.text!
-//        recipe?.medicamentType = medicamentType.text!
-//        recipe?.periodCourse = Int16(periodCourseSlider.value)
-//        recipe?.mealCheck = mealSwitch.isOn
-//        recipe?.mealTime = Int16(mealSegContol.titleForSegment(at: mealSegContol.selectedSegmentIndex)!)!
-//        recipe?.timesDay = Int16(timesDaySegControl.titleForSegment(at: timesDaySegControl.selectedSegmentIndex)!)!
-//        
-//        CoreDataManager.instance.saveContext()
-//        print("Save! \(recipe)")
+        let entity = CoreDataManager.instance.entityForName(entityName: "SBRecipe")
+        let context = CoreDataManager.instance.managedObjectContext
+        let newRecipe = SBRecipe(entity:entity, insertInto:context)
+        newRecipe.medicamentName = medicamentName.text
+        newRecipe.medicamentType = medicamentType.text
+        newRecipe.periodCourse = Int16(periodCourseSlider.value)
+        newRecipe.mealCheck = mealSwitch.isOn
+        newRecipe.mealTime = Int16(mealSegContol.titleForSegment(at: mealSegContol.selectedSegmentIndex)!)!
+        newRecipe.timesDay = Int16(timesDaySegControl.titleForSegment(at: timesDaySegControl.selectedSegmentIndex)!)!
+
+        CoreDataManager.instance.saveContext()
     }
     
 //MARK: viewControllerDelegate
