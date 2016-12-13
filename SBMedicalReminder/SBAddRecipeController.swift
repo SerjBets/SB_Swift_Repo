@@ -22,7 +22,6 @@ class SBAddRecipeController: UIViewController {
     @IBOutlet weak var periodCourseLabel: UILabel!
     
     var timer = Timer()
-    //var recipe : SBRecipe?
     
 //MARK: - Actions
     @IBAction func saveAction(_ sender: UIBarButtonItem) {

@@ -11,6 +11,7 @@ import UIKit
 
 class SBRecipeInfoController: UIViewController {
     
+    @IBOutlet weak var clockLabel: UILabel!
     @IBOutlet weak var name: UILabel!
     @IBOutlet weak var type: UILabel!
     @IBOutlet weak var period: UILabel!
@@ -20,11 +21,12 @@ class SBRecipeInfoController: UIViewController {
     @IBOutlet weak var daysLeft: UILabel!
     
     var recipeInfo : SBRecipe!
-    
+    var timer = Timer()
     
 //MARK: viewControllers
     override func viewDidLoad() {
         super.viewDidLoad()
+        timer = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(timerClock), userInfo: nil, repeats: true)
         
         let tempDaysGo = daysBetweenDates(startDate: Date(), endDate: recipeInfo.date as! Date)
         let tempdaysLeft = recipeInfo.periodCourse - tempDaysGo
@@ -48,5 +50,12 @@ class SBRecipeInfoController: UIViewController {
         let calendar = NSCalendar.current
         let components = calendar.dateComponents([Calendar.Component.day], from: startDate, to: endDate)
         return components.day!
+    }
+    
+//MARK: - Timer
+    func timerClock() {
+        let date = Date()
+        let dateFormatter = DateFormatter.localizedString(from: date, dateStyle: .medium, timeStyle: .medium)
+        clockLabel.text = dateFormatter
     }
 }
