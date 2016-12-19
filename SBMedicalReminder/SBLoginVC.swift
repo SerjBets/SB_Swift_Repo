@@ -14,21 +14,17 @@ class SBLoginVC: UIViewController, UITextFieldDelegate, UIAlertViewDelegate {
     let kUserPassword = "userPassword"
     
 //MARK: - IBOutlets
-    @IBOutlet weak var userNameTextField: UITextField! { didSet { userNameTextField.delegate = self } }
-    @IBOutlet weak var userPasswordTextField: UITextField! { didSet { userPasswordTextField.delegate = self } }
+    @IBOutlet weak var userNameTextField: UITextField!
+    @IBOutlet weak var userPasswordTextField: UITextField!
+    
+//MARK: viewControllerDelegate
+    override func viewDidLoad() {
+        super.viewDidLoad()
+    }
     
 //MARK: - Actions
     @IBAction func loginUserAction(_ sender: UIButton) {
         loginUser()
-    }
-    
-    func userAccountCheck() -> Bool {
-        let userInfo = UserDefaults.standard
-        let userName = userInfo.string(forKey: kUserName)
-        if userName == nil {
-            return false
-        }
-        return true
     }
     
     func loginUser() {
@@ -36,7 +32,7 @@ class SBLoginVC: UIViewController, UITextFieldDelegate, UIAlertViewDelegate {
         let userName = userInfo.string(forKey: kUserName)
         let userPassword = userInfo.string(forKey: kUserPassword)
         
-        if textFieldCheckEmpty() {
+        if textFieldCheck() {
             if (userNameTextField.text == userName) || (userPasswordTextField.text == userPassword) {
                 
             } else {
@@ -44,7 +40,6 @@ class SBLoginVC: UIViewController, UITextFieldDelegate, UIAlertViewDelegate {
                 userNameTextField.text = ""
                 userPasswordTextField.text = ""
             }
-            
         }
     }
     
@@ -58,12 +53,12 @@ class SBLoginVC: UIViewController, UITextFieldDelegate, UIAlertViewDelegate {
         return true
     }
     
-    func textFieldCheckEmpty() -> Bool {
-        if (userNameTextField.text?.isEmpty)! {
+    func textFieldCheck() -> Bool {
+        guard userNameTextField.text?.isEmpty == false else {
             errorAlertAction(message: "Enter user name!")
             return false
         }
-        if (userPasswordTextField.text?.isEmpty)! {
+        guard userPasswordTextField.text?.isEmpty == false else {
             errorAlertAction(message: "Enter user password!")
             return false
         }
@@ -76,19 +71,5 @@ class SBLoginVC: UIViewController, UITextFieldDelegate, UIAlertViewDelegate {
         let okAction = UIAlertAction(title: "OK", style: .default)
         alertController.addAction(okAction)
         present(alertController, animated: true, completion: nil)
-    }
-    
-//MARK: viewControllerDelegate
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-    }
-    
-    override func viewWillLayoutSubviews() {
-        if userAccountCheck() {
-            let mainVC = storyboard?.instantiateViewController(withIdentifier: "SBNavigationVC")
-            let appDelegate = UIApplication.shared.delegate as! AppDelegate
-            appDelegate.window?.rootViewController = mainVC
-        }
     }
 }

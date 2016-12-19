@@ -16,19 +16,24 @@ class SBRegisterVC: UIViewController, UITextFieldDelegate, UIAlertViewDelegate {
     let kUserEmail = "userEmail"
     
 //MARK: - IBOutlets
-    @IBOutlet weak var userNameTextField: UITextField! { didSet { userNameTextField.delegate = self } }
-    @IBOutlet weak var userPasswordTextField: UITextField! { didSet { userPasswordTextField.delegate = self } }
-    @IBOutlet weak var confirmPasswordTextField: UITextField! { didSet { confirmPasswordTextField.delegate = self } }
-    @IBOutlet weak var userEmailTextField: UITextField! { didSet { userEmailTextField.delegate = self } }
+    @IBOutlet weak var userNameTextField: UITextField!
+    @IBOutlet weak var userPasswordTextField: UITextField!
+    @IBOutlet weak var confirmPasswordTextField: UITextField!
+    @IBOutlet weak var userEmailTextField: UITextField!
+    
+//MARK: viewController
+    override func viewDidLoad() {
+        super.viewDidLoad()
+    }
     
 //MARK: - Actions
     @IBAction func registerUserAction(_ sender: UIButton) {
         registerUser()
     }
-    
+
     func registerUser() {
         let userInfo = UserDefaults.standard;
-        if self.textFieldCheckEmpty() {
+        if self.textFieldCheck() {
             userInfo.set(userNameTextField.text,           forKey: kUserName)
             userInfo.set(userPasswordTextField.text,       forKey: kUserPassword)
             userInfo.set(confirmPasswordTextField.text,    forKey: kConfirmPassword)
@@ -42,23 +47,24 @@ class SBRegisterVC: UIViewController, UITextFieldDelegate, UIAlertViewDelegate {
             userInfo.synchronize()
         }
     }
-    
+
 //MARK: - TextFieldDelegate
-    func textFieldCheckEmpty() -> Bool {
-        if (userNameTextField.text?.isEmpty)! {
+    func textFieldCheck() -> Bool {
+        guard userNameTextField.text?.isEmpty == false else {
             errorAlertAction(message: "Enter user name!")
             return false
         }
-        if (userPasswordTextField.text?.isEmpty)! {
+        guard userPasswordTextField.text?.isEmpty == false else {
             errorAlertAction(message: "Enter user password!")
             return false
         }
-        if (confirmPasswordTextField.text?.isEmpty)! {
+        guard confirmPasswordTextField.text?.isEmpty == false else {
             errorAlertAction(message: "Confirm password!")
             return false
         }
-        if (userEmailTextField.text?.isEmpty)! {
+        guard userEmailTextField.text?.isEmpty == false else {
             errorAlertAction(message: "Enter user e-mail!")
+            return false
         }
         if (userPasswordTextField.text != confirmPasswordTextField.text) {
             errorAlertAction(message: "Passwords do not match! Check you passwords!")
@@ -67,7 +73,7 @@ class SBRegisterVC: UIViewController, UITextFieldDelegate, UIAlertViewDelegate {
         return true
     }
     
-    func textFieldShouldReturn(_ textField:UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField == userNameTextField {
             userPasswordTextField.becomeFirstResponder()
         } else if textField == userPasswordTextField {
@@ -87,11 +93,5 @@ class SBRegisterVC: UIViewController, UITextFieldDelegate, UIAlertViewDelegate {
         alertController.addAction(okAction)
         present(alertController, animated: true, completion:nil)
     }
-    
-//MARK: viewControllerDelegate
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        userEmailTextField.delegate = self
-        userPasswordTextField.delegate = self
-    }
+
 }

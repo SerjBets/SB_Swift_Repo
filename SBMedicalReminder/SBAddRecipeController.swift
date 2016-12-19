@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class SBAddRecipeController: UIViewController {
+class SBAddRecipeController: UIViewController, UITextFieldDelegate {
     
 //MARK: - IBOutlets
     @IBOutlet weak var medicamentName: UITextField!
@@ -23,11 +23,24 @@ class SBAddRecipeController: UIViewController {
     
     var timer = Timer()
     
+//MARK: viewController
+    override func viewDidLoad() {
+        super.viewDidLoad()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        timer = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(timerClock), userInfo: nil, repeats: true)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        timer.invalidate()
+    }
+    
 //MARK: - Actions
     @IBAction func saveAction(_ sender: UIBarButtonItem) {
         if textFieldCheckEmpty() {
             saveRecipe()
-            performSegue(withIdentifier: SBRecipesListController.segueIdentifierAddToList, sender: nil)
+            performSegue(withIdentifier: SBRecipesTable.segueIdentifierAddToTable, sender: nil)
         }
     }
     
@@ -40,32 +53,16 @@ class SBAddRecipeController: UIViewController {
     func saveRecipe() {
         let entity = CoreDataManager.instance.entityForName(entityName: "SBRecipe")
         let context = CoreDataManager.instance.managedObjectContext
-        let newRecipe = SBRecipe(entity:entity, insertInto:context)
+        let newRecipe = SBManagedRecipe(entity:entity, insertInto:context)
         newRecipe.medicamentName = medicamentName.text
         newRecipe.medicamentType = medicamentType.text
         newRecipe.periodCourse = Int16(periodCourseSlider.value)
         newRecipe.mealCheck = mealSwitch.isOn
         newRecipe.mealTime = Int16(mealSegContol.titleForSegment(at: mealSegContol.selectedSegmentIndex)!)!
         newRecipe.timesDay = Int16(timesDaySegControl.titleForSegment(at: timesDaySegControl.selectedSegmentIndex)!)!
-        newRecipe.date = NSDate()
+        newRecipe.date = Date()
 
         CoreDataManager.instance.saveContext()
-    }
-    
-//MARK: viewControllerDelegate
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        timer = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(timerClock), userInfo: nil, repeats: true)
-        
-        //Notifications addObserver
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        //Notifications removeObserver
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: self.view.window)
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: self.view.window)
     }
     
 //MARK: - TextFieldDelegate
@@ -79,32 +76,15 @@ class SBAddRecipeController: UIViewController {
     }
     
     func textFieldCheckEmpty() -> Bool {
-        if (medicamentName.text?.isEmpty)! {
+        guard medicamentName.text?.isEmpty == false else {
             errorAlertAction(title: "Error!", message: "Enter medicament name!")
             return false
         }
-        if (medicamentType.text?.isEmpty)! {
+        guard medicamentType.text?.isEmpty == false else {
             errorAlertAction(title: "Error!", message: "Enter medicament type!")
             return false
         }
         return true
-    }
-    
-    func keyboardWillShow(notification: NSNotification) {
-        
-        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
-            if self.view.frame.origin.y == 0 {
-                self.view.frame.origin.y -= keyboardSize.height
-            }
-        }
-    }
-    
-    func keyboardWillHide(notification: NSNotification) {
-        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
-            if self.view.frame.origin.y != 0 {
-                self.view.frame.origin.y += keyboardSize.height
-            }
-        }
     }
     
 //MARK: - ErrorActionsDelegate
@@ -123,11 +103,11 @@ class SBAddRecipeController: UIViewController {
     }
     
 //MARK: - segue
-    func prepareForSegue(segue: UIStoryboardSegue, sender: SBRecipe?) {
-        if segue.identifier == SBRecipesListController.segueIdentifierAddToList {
+    func prepareForSegue(segue: UIStoryboardSegue, sender: SBManagedRecipe?) {
+        if segue.identifier == SBRecipesTable.segueIdentifierAddToTable {
             _ = segue.destination as! SBAddRecipeController
         }
-        if segue.identifier == SBRecipesListController.segueIdentifierRecipeInfo {
+        if segue.identifier == SBRecipesTable.segueIdentifierRecipeInfo {
             
         }
     }

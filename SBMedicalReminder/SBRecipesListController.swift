@@ -16,7 +16,7 @@ class SBRecipesListController: UIViewController, UITableViewDataSource, UITableV
     static let segueIdentifierRecipeInfo = "segueRecipeInfo"
     static let segueIdentifierAddToList = "segueAddToList"
     
-    var fetchedResultsController = CoreDataManager.instance.fetchedResultsController(entityName: "SBRecipe", keyForSort: SBRecipe.kMedicamentName)
+    var fetchedResultsController = CoreDataManager.instance.fetchedResultsController(entityName: "SBRecipe", keyForSort: SBManagedRecipe.kMedicamentName)
     
 //MARK: - IBOutlets
     @IBOutlet weak var recipeTableView: UITableView!
@@ -53,8 +53,11 @@ class SBRecipesListController: UIViewController, UITableViewDataSource, UITableV
         if (cell == nil) {
             cell = UITableViewCell.init(style: .value1, reuseIdentifier: SBRecipesListController.cellReuseIdentifier)
         }
-        let recipe = fetchedResultsController.object(at: indexPath) as! SBRecipe
-        let date = daysBetweenDates(startDate: Date(), endDate: recipe.date as! Date)
+        let recipe = fetchedResultsController.object(at: indexPath) as! SBManagedRecipe
+        var date = 0
+        if recipe.date != nil {
+            date = daysBetweenDates(startDate: Date(), endDate: recipe.date!)
+        }
         cell?.textLabel?.text = recipe.medicamentName
         cell?.detailTextLabel?.text = String("\(date) days")
         return cell!
@@ -62,7 +65,7 @@ class SBRecipesListController: UIViewController, UITableViewDataSource, UITableV
     
     //Select row
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let recipe = fetchedResultsController.object(at: indexPath) as! SBRecipe
+        let recipe = fetchedResultsController.object(at: indexPath) as! SBManagedRecipe
         performSegue(withIdentifier: SBRecipesListController.segueIdentifierRecipeInfo, sender: recipe)
     }
     
@@ -70,7 +73,7 @@ class SBRecipesListController: UIViewController, UITableViewDataSource, UITableV
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         switch editingStyle {
         case .delete:
-            let recipe = fetchedResultsController.object(at: indexPath) as! SBRecipe
+            let recipe = fetchedResultsController.object(at: indexPath) as! SBManagedRecipe
             CoreDataManager.instance.managedObjectContext.delete(recipe)
             CoreDataManager.instance.saveContext()
         default: break
@@ -88,7 +91,7 @@ class SBRecipesListController: UIViewController, UITableViewDataSource, UITableV
     //Calculate how many days between 2 dates
     func daysBetweenDates(startDate: Date, endDate: Date) -> Int
     {
-        let calendar = NSCalendar.current
+        let calendar = Calendar.current
         let components = calendar.dateComponents([Calendar.Component.day], from: startDate, to: endDate)
         return components.day!
     }
@@ -111,7 +114,7 @@ class SBRecipesListController: UIViewController, UITableViewDataSource, UITableV
         }
         if segue.identifier == SBRecipesListController.segueIdentifierRecipeInfo {
             let controller = segue.destination as! SBRecipeInfoController
-            let recipeInfo = sender as! SBRecipe
+            let recipeInfo = sender as! SBManagedRecipe
             controller.recipeInfo = recipeInfo
         }
     }

@@ -20,15 +20,14 @@ class SBRecipeInfoController: UIViewController {
     @IBOutlet weak var days: UILabel!
     @IBOutlet weak var daysLeft: UILabel!
     
-    var recipeInfo : SBRecipe!
+    var recipeInfo : SBManagedRecipe!
     var timer = Timer()
     
 //MARK: viewControllers
     override func viewDidLoad() {
         super.viewDidLoad()
-        timer = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(timerClock), userInfo: nil, repeats: true)
         
-        let tempDaysGo = daysBetweenDates(startDate: Date(), endDate: recipeInfo.date as! Date)
+        let tempDaysGo = daysBetweenDates(startDate: Date(), endDate: recipeInfo.date!)
         let tempdaysLeft = recipeInfo.periodCourse - tempDaysGo
         
         name.text           = " \(recipeInfo.medicamentName!)"
@@ -45,9 +44,17 @@ class SBRecipeInfoController: UIViewController {
         }
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        timer = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(timerClock), userInfo: nil, repeats: true)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        timer.invalidate()
+    }
+    
     func daysBetweenDates(startDate: Date, endDate: Date) -> Int
     {
-        let calendar = NSCalendar.current
+        let calendar = Calendar.current
         let components = calendar.dateComponents([Calendar.Component.day], from: startDate, to: endDate)
         return components.day!
     }

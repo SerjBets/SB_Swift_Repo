@@ -10,7 +10,7 @@ import Foundation
 import CoreData
 
 //@objc(SBRecipe)
-class SBRecipe: NSManagedObject {
+class SBManagedRecipe: NSManagedObject {
     
 //CoreData keys
     static let kMedicamentName  = "medicamentName"

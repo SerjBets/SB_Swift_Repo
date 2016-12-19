@@ -15,9 +15,8 @@ class SBForgotPasswordVC: UIViewController, UITextFieldDelegate {
     let kUserEmail = "userEmail"
     
 //MARK: - IBOutlets
-    @IBOutlet weak var userNameTextField: UITextField! { didSet { userNameTextField.delegate = self } }
-    @IBOutlet weak var userEmailTextField: UITextField! { didSet { userEmailTextField.delegate = self } }
-
+    @IBOutlet weak var userNameTextField: UITextField!
+    @IBOutlet weak var userEmailTextField: UITextField!
     
 //MARK: - Actions
     @IBAction func resetAction(_ sender: UIButton) {

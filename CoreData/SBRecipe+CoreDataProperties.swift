@@ -10,10 +10,10 @@ import Foundation
 import CoreData
 
 
-extension SBRecipe {
+extension SBManagedRecipe {
 
-    @nonobjc public class func fetchRequest() -> NSFetchRequest<SBRecipe> {
-        return NSFetchRequest<SBRecipe>(entityName: "SBRecipe");
+    @nonobjc public class func fetchRequest() -> NSFetchRequest<SBManagedRecipe> {
+        return NSFetchRequest<SBManagedRecipe>(entityName: "SBRecipe");
     }
 
     @NSManaged public var mealCheck: Bool
@@ -22,6 +22,6 @@ extension SBRecipe {
     @NSManaged public var medicamentType: String?
     @NSManaged public var periodCourse: Int16
     @NSManaged public var timesDay: Int16
-    @NSManaged public var date: NSDate?
+    @NSManaged public var date: Date?
 
 }

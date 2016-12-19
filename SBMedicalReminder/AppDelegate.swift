@@ -14,6 +14,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let rootController = storyboard.instantiateViewController(withIdentifier: "SBNavigationVC")
+        let userInfo = UserDefaults.standard
+        let userName = userInfo.string(forKey: "userName")
+        if userName != nil {
+            if let window = self.window {
+                window.rootViewController = rootController
+            }
+        }
         return true
     }
 
