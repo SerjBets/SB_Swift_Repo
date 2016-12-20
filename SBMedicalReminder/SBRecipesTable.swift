@@ -11,14 +11,11 @@ import UIKit
 
 class SBRecipesTable: UITableViewController, NSFetchedResultsControllerDelegate {
     
-    static let cellReuseIdentifier = "RecipeCell"
-    static let segueIdentifireTableToAdd = "segueTableToAdd"
-    static let segueIdentifierRecipeInfo = "segueTableRecipeInfo"
-    static let segueIdentifierAddToTable = "segueAddToTable"
-    
     @IBOutlet weak var editButton: UIBarButtonItem!
     
     var fetchedResultsController = CoreDataManager.instance.fetchedResultsController(entityName: "SBRecipe", keyForSort: SBManagedRecipe.kMedicamentName)
+    let segueKeys = SBKeysAndSegue()
+    
     
 //MARK: viewControllers
     override func viewDidLoad() {
@@ -44,7 +41,7 @@ class SBRecipesTable: UITableViewController, NSFetchedResultsControllerDelegate 
     }
     
     @IBAction func addAction(_ sender: UIBarButtonItem) {
-        performSegue(withIdentifier: SBRecipesTable.segueIdentifierAddToTable, sender: nil)
+        performSegue(withIdentifier: segueKeys.segueIdentifierAddToTable, sender: nil)
     }
     
 //MARK - TableViewDataSourse
@@ -56,29 +53,26 @@ class SBRecipesTable: UITableViewController, NSFetchedResultsControllerDelegate 
         }
     }
     
-//Read CoreData to TableView
+    //Read CoreData to TableView
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var cell = tableView.dequeueReusableCell(withIdentifier: SBRecipesTable.cellReuseIdentifier)
-        if (cell == nil) {
-            cell = UITableViewCell.init(style: .value1, reuseIdentifier: SBRecipesTable.cellReuseIdentifier)
-        }
+        let cellReuseIdentifier = "RecipeCell"
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellReuseIdentifier) as! SBConfigureCell
         let recipe = fetchedResultsController.object(at: indexPath) as! SBManagedRecipe
-        var date = 0
+        var daysCount = 0
         if recipe.date != nil {
-            date = daysBetweenDates(startDate: Date(), endDate: recipe.date!)
+            daysCount = daysBetweenDates(startDate: Date(), endDate: recipe.date!)
         }
-        cell?.textLabel?.text = recipe.medicamentName
-        cell?.detailTextLabel?.text = String("\(date) days")
-        return cell!
+        cell.configureCell(recipe: recipe, days: daysCount)
+        return cell
     }
     
-//Select row
+    //Select row
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let recipe = fetchedResultsController.object(at: indexPath) as! SBManagedRecipe
-        performSegue(withIdentifier: SBRecipesTable.segueIdentifierRecipeInfo, sender: recipe)
+        performSegue(withIdentifier: segueKeys.segueIdentifierRecipeInfo, sender: recipe)
     }
     
-//Delete row
+    //Delete row
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         switch editingStyle {
         case .delete:
@@ -106,10 +100,10 @@ class SBRecipesTable: UITableViewController, NSFetchedResultsControllerDelegate 
     
 //MARK: - segue
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == SBRecipesTable.segueIdentifireTableToAdd {
+        if segue.identifier == segueKeys.segueIdentifireTableToAdd {
             _ = segue.destination as! SBAddRecipeController
         }
-        if segue.identifier == SBRecipesTable.segueIdentifierRecipeInfo {
+        if segue.identifier == segueKeys.segueIdentifierRecipeInfo {
             let controller = segue.destination as! SBRecipeInfoController
             let recipeInfo = sender as! SBManagedRecipe
             controller.recipeInfo = recipeInfo

@@ -10,13 +10,18 @@ import UIKit
 
 class SBForgotPasswordVC: UIViewController, UITextFieldDelegate {
 //MARK: - keys
-    let kUserName = "userName"
-    let kUserPassword = "userPassword"
-    let kUserEmail = "userEmail"
+    
+    let keys = SBKeysAndSegue()
+    let alert = SBAlertManager()
     
 //MARK: - IBOutlets
     @IBOutlet weak var userNameTextField: UITextField!
     @IBOutlet weak var userEmailTextField: UITextField!
+    
+//MARK: viewController
+    override func viewDidLoad() {
+        super.viewDidLoad()
+    }
     
 //MARK: - Actions
     @IBAction func resetAction(_ sender: UIButton) {
@@ -25,14 +30,14 @@ class SBForgotPasswordVC: UIViewController, UITextFieldDelegate {
     
     func resetUserPassword() {
         let userInfo = UserDefaults.standard
-        let userName = userInfo.string(forKey: kUserName)
-        let userEmail = userInfo.string(forKey: kUserEmail)
-        if textFieldCheckEmpty() {
+        let userName = userInfo.string(forKey: keys.kUserName)
+        let userEmail = userInfo.string(forKey: keys.kUserEmail)
+        if textFieldIsEmpty() {
             if (userNameTextField.text == userName) && (userEmailTextField.text == userEmail) {
-                let userPassword = userInfo.string(forKey: kUserPassword)
-                errorAlertAction(message:"Your password is \(userPassword!) !")
+                let userPassword = userInfo.string(forKey: keys.kUserPassword)
+                alert.errorAlertAction(message:"Your password is \(userPassword!) !")
             } else {
-                errorAlertAction(message:"Incorrect user name or password!")
+                alert.errorAlertAction(message:"Incorrect user name or password!")
                 userEmailTextField.text = ""
                 userEmailTextField.text = ""
             }
@@ -49,29 +54,16 @@ class SBForgotPasswordVC: UIViewController, UITextFieldDelegate {
         return true
     }
     
-    func textFieldCheckEmpty() -> Bool {
+    func textFieldIsEmpty() -> Bool {
         if (userNameTextField.text?.isEmpty)! {
-            errorAlertAction(message: "Enter user name!")
+            alert.errorAlertAction(message: "Enter user name!")
             return false
         }
         if (userEmailTextField.text?.isEmpty)! {
-            errorAlertAction(message: "Enter user password!")
+            alert.errorAlertAction(message: "Enter user password!")
             return false
         }
         return true
-    }
-    
-//MARK: - ErrorActionsDelegate
-    func errorAlertAction(message:String) {
-        let alertController = UIAlertController(title: "Error!", message: message, preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "OK", style: .default)
-        alertController.addAction(okAction)
-        present(alertController, animated: true, completion: nil)
-    }
-    
-//MARK: viewControllerDelegate
-    override func viewDidLoad() {
-        super.viewDidLoad()
     }
 
 }

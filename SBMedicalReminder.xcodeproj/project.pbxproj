@@ -9,7 +9,10 @@
 /* Begin PBXBuildFile section */
 		1E179B0E1DF4A1990028EBD4 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E179B0D1DF4A1990028EBD4 /* CoreDataManager.swift */; };
 		1E179B1E1DF4BE0D0028EBD4 /* SBRecipe+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E179B1C1DF4BE0D0028EBD4 /* SBRecipe+CoreDataClass.swift */; };
+		1E31EC171E09D1F40087883E /* SBKeysAndSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E31EC161E09D1F40087883E /* SBKeysAndSegue.swift */; };
+		1E31EC191E09D65C0087883E /* SBAlertManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E31EC181E09D65C0087883E /* SBAlertManager.swift */; };
 		1E5798C51E08665400FCC594 /* SBRecipesTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E5798C41E08665400FCC594 /* SBRecipesTable.swift */; };
+		1E5798C71E08881200FCC594 /* SBConfigureCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E5798C61E08881200FCC594 /* SBConfigureCell.swift */; };
 		1E6C074F1DFFFF8500F8FA98 /* SBRecipe+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6C074E1DFFFF8500F8FA98 /* SBRecipe+CoreDataProperties.swift */; };
 		1E7037F41E000DF10060FA86 /* SBRecipeInfoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E7037F31E000DF10060FA86 /* SBRecipeInfoController.swift */; };
 		1EA6E2FD1DEF83E500E80895 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1EA6E2FC1DEF83E500E80895 /* CoreData.framework */; };
@@ -46,7 +49,10 @@
 /* Begin PBXFileReference section */
 		1E179B0D1DF4A1990028EBD4 /* CoreDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		1E179B1C1DF4BE0D0028EBD4 /* SBRecipe+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "SBRecipe+CoreDataClass.swift"; path = "../CoreData/SBRecipe+CoreDataClass.swift"; sourceTree = "<group>"; };
+		1E31EC161E09D1F40087883E /* SBKeysAndSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SBKeysAndSegue.swift; sourceTree = "<group>"; };
+		1E31EC181E09D65C0087883E /* SBAlertManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SBAlertManager.swift; sourceTree = "<group>"; };
 		1E5798C41E08665400FCC594 /* SBRecipesTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SBRecipesTable.swift; sourceTree = "<group>"; };
+		1E5798C61E08881200FCC594 /* SBConfigureCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SBConfigureCell.swift; sourceTree = "<group>"; };
 		1E6744791DFDB13800E89BC1 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Platforms/iPhoneOS.platform/Developer/Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		1E6C074E1DFFFF8500F8FA98 /* SBRecipe+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "SBRecipe+CoreDataProperties.swift"; path = "../CoreData/SBRecipe+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		1E6C07501E00059A00F8FA98 /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = System/Library/Frameworks/EventKit.framework; sourceTree = SDKROOT; };
@@ -106,6 +112,7 @@
 				1E6C074E1DFFFF8500F8FA98 /* SBRecipe+CoreDataProperties.swift */,
 				1E179B0D1DF4A1990028EBD4 /* CoreDataManager.swift */,
 				1ED95A7D1DEB2C4A00DDA7A1 /* SBMedicalReminder.xcdatamodeld */,
+				1E6D33831E02A1FA00D1D071 /* SBMedicalReminder.entitlements */,
 			);
 			name = CoreData;
 			sourceTree = "<group>";
@@ -115,9 +122,18 @@
 			children = (
 				1ED95AB11DEB2E1B00DDA7A1 /* SBAddRecipeController.swift */,
 				1E7037F31E000DF10060FA86 /* SBRecipeInfoController.swift */,
-				1E5798C41E08665400FCC594 /* SBRecipesTable.swift */,
+				1E5798C81E088A8200FCC594 /* TableView */,
 			);
 			name = "Recipes ViewControllers";
+			sourceTree = "<group>";
+		};
+		1E5798C81E088A8200FCC594 /* TableView */ = {
+			isa = PBXGroup;
+			children = (
+				1E5798C41E08665400FCC594 /* SBRecipesTable.swift */,
+				1E5798C61E08881200FCC594 /* SBConfigureCell.swift */,
+			);
+			name = TableView;
 			sourceTree = "<group>";
 		};
 		1E6C07491DFF143300F8FA98 /* Login ViewControllers */ = {
@@ -165,8 +181,9 @@
 		1ED95A751DEB2C4A00DDA7A1 /* SBMedicalReminder */ = {
 			isa = PBXGroup;
 			children = (
-				1E6D33831E02A1FA00D1D071 /* SBMedicalReminder.entitlements */,
 				1ED95A761DEB2C4A00DDA7A1 /* AppDelegate.swift */,
+				1E31EC161E09D1F40087883E /* SBKeysAndSegue.swift */,
+				1E31EC181E09D65C0087883E /* SBAlertManager.swift */,
 				1E6C07491DFF143300F8FA98 /* Login ViewControllers */,
 				1E179B211DF4BF360028EBD4 /* Recipes ViewControllers */,
 				1E179B201DF4BF240028EBD4 /* CoreData */,
@@ -339,13 +356,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				1ED95AAA1DEB2D0B00DDA7A1 /* SBRegisterVC.swift in Sources */,
+				1E31EC191E09D65C0087883E /* SBAlertManager.swift in Sources */,
 				1ED95A7F1DEB2C4A00DDA7A1 /* SBMedicalReminder.xcdatamodeld in Sources */,
 				1ED95AAC1DEB2D4900DDA7A1 /* SBLoginVC.swift in Sources */,
+				1E5798C71E08881200FCC594 /* SBConfigureCell.swift in Sources */,
 				1ED95A771DEB2C4A00DDA7A1 /* AppDelegate.swift in Sources */,
 				1E179B0E1DF4A1990028EBD4 /* CoreDataManager.swift in Sources */,
 				1E6C074F1DFFFF8500F8FA98 /* SBRecipe+CoreDataProperties.swift in Sources */,
 				1E5798C51E08665400FCC594 /* SBRecipesTable.swift in Sources */,
 				1ED95AAE1DEB2D9000DDA7A1 /* SBForgotPasswordVC.swift in Sources */,
+				1E31EC171E09D1F40087883E /* SBKeysAndSegue.swift in Sources */,
 				1ED95AB21DEB2E1B00DDA7A1 /* SBAddRecipeController.swift in Sources */,
 				1E179B1E1DF4BE0D0028EBD4 /* SBRecipe+CoreDataClass.swift in Sources */,
 				1E7037F41E000DF10060FA86 /* SBRecipeInfoController.swift in Sources */,

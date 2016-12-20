@@ -9,11 +9,9 @@
 import UIKit
 
 class SBRegisterVC: UIViewController, UITextFieldDelegate, UIAlertViewDelegate {
-//MARK: - keys
-    let kUserName = "userName"
-    let kUserPassword = "userPassword"
-    let kConfirmPassword = "confirmPassword"
-    let kUserEmail = "userEmail"
+    
+    let alert = SBAlertManager()
+    let registerKeys = SBKeysAndSegue()
     
 //MARK: - IBOutlets
     @IBOutlet weak var userNameTextField: UITextField!
@@ -33,44 +31,39 @@ class SBRegisterVC: UIViewController, UITextFieldDelegate, UIAlertViewDelegate {
 
     func registerUser() {
         let userInfo = UserDefaults.standard;
-        if self.textFieldCheck() {
-            userInfo.set(userNameTextField.text,           forKey: kUserName)
-            userInfo.set(userPasswordTextField.text,       forKey: kUserPassword)
-            userInfo.set(confirmPasswordTextField.text,    forKey: kConfirmPassword)
-            userInfo.set(userEmailTextField.text,          forKey: kUserEmail)
-            let alertController = UIAlertController(title: "Error!", message: "New user successful registered!", preferredStyle: .alert)
-            let okAction = UIAlertAction(title: "OK", style: .default) { (action:UIAlertAction!) in
-                self.dismiss(animated: true, completion: nil)
-            }
-            alertController.addAction(okAction)
-            present(alertController, animated: true, completion:nil)
+        if self.textFieldIsEmpty() == false {
+            userInfo.set(userNameTextField.text,           forKey: registerKeys.kUserName)
+            userInfo.set(userPasswordTextField.text,       forKey: registerKeys.kUserPassword)
+            userInfo.set(confirmPasswordTextField.text,    forKey: registerKeys.kConfirmPassword)
+            userInfo.set(userEmailTextField.text,          forKey: registerKeys.kUserEmail)
+            alert.errorAlertDismissAction(message: "New user successful registered!")
             userInfo.synchronize()
         }
     }
 
 //MARK: - TextFieldDelegate
-    func textFieldCheck() -> Bool {
+    func textFieldIsEmpty() -> Bool {
         guard userNameTextField.text?.isEmpty == false else {
-            errorAlertAction(message: "Enter user name!")
-            return false
+            alert.errorAlertAction(message: "Enter user name!")
+            return true
         }
         guard userPasswordTextField.text?.isEmpty == false else {
-            errorAlertAction(message: "Enter user password!")
-            return false
+            alert.errorAlertAction(message: "Enter user password!")
+            return true
         }
         guard confirmPasswordTextField.text?.isEmpty == false else {
-            errorAlertAction(message: "Confirm password!")
-            return false
+            alert.errorAlertAction(message: "Confirm password!")
+            return true
         }
         guard userEmailTextField.text?.isEmpty == false else {
-            errorAlertAction(message: "Enter user e-mail!")
-            return false
+            alert.errorAlertAction(message: "Enter user e-mail!")
+            return true
         }
         if (userPasswordTextField.text != confirmPasswordTextField.text) {
-            errorAlertAction(message: "Passwords do not match! Check you passwords!")
-            return false
+            alert.errorAlertAction(message: "Passwords do not match! Check you passwords!")
+            return true
         }
-        return true
+        return false
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -85,13 +78,4 @@ class SBRegisterVC: UIViewController, UITextFieldDelegate, UIAlertViewDelegate {
         }
         return true
     }
-    
-//MARK: - ErrorActionsDelegate
-    func errorAlertAction(message:String) {
-        let alertController = UIAlertController(title: "Error!", message: message, preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "OK", style: .default)
-        alertController.addAction(okAction)
-        present(alertController, animated: true, completion:nil)
-    }
-
 }

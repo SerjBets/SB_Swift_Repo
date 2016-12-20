@@ -8,10 +8,11 @@
 
 import UIKit
 
-class SBLoginVC: UIViewController, UITextFieldDelegate, UIAlertViewDelegate {
-//MARK: - keys
-    let kUserName = "userName"
-    let kUserPassword = "userPassword"
+class SBLoginVC: UIViewController, UITextFieldDelegate {
+    
+    let keys = SBKeysAndSegue()
+    let segueKeys = SBKeysAndSegue()
+    let alert = SBAlertManager()
     
 //MARK: - IBOutlets
     @IBOutlet weak var userNameTextField: UITextField!
@@ -24,23 +25,27 @@ class SBLoginVC: UIViewController, UITextFieldDelegate, UIAlertViewDelegate {
     
 //MARK: - Actions
     @IBAction func loginUserAction(_ sender: UIButton) {
-        loginUser()
+        if loginUser() {
+            
+        }
     }
     
-    func loginUser() {
+    func loginUser() -> Bool {
         let userInfo = UserDefaults.standard
-        let userName = userInfo.string(forKey: kUserName)
-        let userPassword = userInfo.string(forKey: kUserPassword)
+        let userName = userInfo.string(forKey: keys.kUserName)
+        let userPassword = userInfo.string(forKey: keys.kUserPassword)
         
-        if textFieldCheck() {
+        if textFieldIsEmpty() == false {
             if (userNameTextField.text == userName) || (userPasswordTextField.text == userPassword) {
-                
+                return true
             } else {
-                errorAlertAction(message: "Incorrect user name or password!")
+                alert.errorAlertAction(message: "Incorrect user name or password!")
                 userNameTextField.text = ""
                 userPasswordTextField.text = ""
+                return false
             }
         }
+        return false
     }
     
 //MARK: - TextFieldDelegate
@@ -53,23 +58,28 @@ class SBLoginVC: UIViewController, UITextFieldDelegate, UIAlertViewDelegate {
         return true
     }
     
-    func textFieldCheck() -> Bool {
+    func textFieldIsEmpty() -> Bool {
         guard userNameTextField.text?.isEmpty == false else {
-            errorAlertAction(message: "Enter user name!")
-            return false
+            alert.errorAlertAction(message: "Enter user name!")
+            return true
         }
         guard userPasswordTextField.text?.isEmpty == false else {
-            errorAlertAction(message: "Enter user password!")
-            return false
+            alert.errorAlertAction(message: "Enter user password!")
+            return true
         }
-        return true
+        return false
     }
     
-//MARK: - ErrorActionsDelegate
-    func errorAlertAction(message:String) {
-        let alertController = UIAlertController(title: "Error!", message: message, preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "OK", style: .default)
-        alertController.addAction(okAction)
-        present(alertController, animated: true, completion: nil)
+//MARK: - segue
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == segueKeys.segueIdentifireTableToAdd {
+            _ = segue.destination as! SBAddRecipeController
+        }
+        if segue.identifier == segueKeys.segueIdentifierRecipeInfo {
+            let controller = segue.destination as! SBRecipeInfoController
+            let recipeInfo = sender as! SBManagedRecipe
+            controller.recipeInfo = recipeInfo
+        }
     }
+    
 }

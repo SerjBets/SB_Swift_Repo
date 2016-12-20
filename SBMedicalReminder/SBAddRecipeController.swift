@@ -22,6 +22,9 @@ class SBAddRecipeController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var periodCourseLabel: UILabel!
     
     var timer = Timer()
+    let alert = SBAlertManager()
+    let segueKeys = SBKeysAndSegue()
+    
     
 //MARK: viewController
     override func viewDidLoad() {
@@ -38,9 +41,9 @@ class SBAddRecipeController: UIViewController, UITextFieldDelegate {
     
 //MARK: - Actions
     @IBAction func saveAction(_ sender: UIBarButtonItem) {
-        if textFieldCheckEmpty() {
+        if textFieldIsEmpty() != true {
             saveRecipe()
-            performSegue(withIdentifier: SBRecipesTable.segueIdentifierAddToTable, sender: nil)
+            performSegue(withIdentifier: segueKeys.segueIdentifierAddToTable, sender: nil)
         }
     }
     
@@ -75,24 +78,16 @@ class SBAddRecipeController: UIViewController, UITextFieldDelegate {
         return true
     }
     
-    func textFieldCheckEmpty() -> Bool {
+    func textFieldIsEmpty() -> Bool {
         guard medicamentName.text?.isEmpty == false else {
-            errorAlertAction(title: "Error!", message: "Enter medicament name!")
-            return false
+            alert.errorAlertAction(message: "Enter medicament name!")
+            return true
         }
         guard medicamentType.text?.isEmpty == false else {
-            errorAlertAction(title: "Error!", message: "Enter medicament type!")
-            return false
+            alert.errorAlertAction(message: "Enter medicament type!")
+            return true
         }
-        return true
-    }
-    
-//MARK: - ErrorActionsDelegate
-    func errorAlertAction(title: String, message:String) {
-        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "OK", style: .default)
-        alertController.addAction(okAction)
-        present(alertController, animated: true, completion: nil)
+        return false
     }
     
 //MARK: - Timer
@@ -104,10 +99,10 @@ class SBAddRecipeController: UIViewController, UITextFieldDelegate {
     
 //MARK: - segue
     func prepareForSegue(segue: UIStoryboardSegue, sender: SBManagedRecipe?) {
-        if segue.identifier == SBRecipesTable.segueIdentifierAddToTable {
+        if segue.identifier == segueKeys.segueIdentifierAddToTable {
             _ = segue.destination as! SBAddRecipeController
         }
-        if segue.identifier == SBRecipesTable.segueIdentifierRecipeInfo {
+        if segue.identifier == segueKeys.segueIdentifierRecipeInfo {
             
         }
     }
