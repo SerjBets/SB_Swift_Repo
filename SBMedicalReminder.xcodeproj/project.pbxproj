@@ -117,33 +117,42 @@
 			name = CoreData;
 			sourceTree = "<group>";
 		};
-		1E179B211DF4BF360028EBD4 /* Recipes ViewControllers */ = {
+		1E179B211DF4BF360028EBD4 /* AddRecipe / RecipeInfo */ = {
 			isa = PBXGroup;
 			children = (
 				1ED95AB11DEB2E1B00DDA7A1 /* SBAddRecipeController.swift */,
 				1E7037F31E000DF10060FA86 /* SBRecipeInfoController.swift */,
-				1E5798C81E088A8200FCC594 /* TableView */,
 			);
-			name = "Recipes ViewControllers";
+			name = "AddRecipe / RecipeInfo";
 			sourceTree = "<group>";
 		};
-		1E5798C81E088A8200FCC594 /* TableView */ = {
-			isa = PBXGroup;
-			children = (
-				1E5798C41E08665400FCC594 /* SBRecipesTable.swift */,
-				1E5798C61E08881200FCC594 /* SBConfigureCell.swift */,
-			);
-			name = TableView;
-			sourceTree = "<group>";
-		};
-		1E6C07491DFF143300F8FA98 /* Login ViewControllers */ = {
+		1E31EC1A1E09DAA40087883E /* Login / Register / ForgotPassword */ = {
 			isa = PBXGroup;
 			children = (
 				1ED95AA91DEB2D0B00DDA7A1 /* SBRegisterVC.swift */,
 				1ED95AAB1DEB2D4900DDA7A1 /* SBLoginVC.swift */,
 				1ED95AAD1DEB2D9000DDA7A1 /* SBForgotPasswordVC.swift */,
 			);
-			name = "Login ViewControllers";
+			name = "Login / Register / ForgotPassword";
+			sourceTree = "<group>";
+		};
+		1E5798C81E088A8200FCC594 /* ResipesTableView */ = {
+			isa = PBXGroup;
+			children = (
+				1E5798C41E08665400FCC594 /* SBRecipesTable.swift */,
+				1E5798C61E08881200FCC594 /* SBConfigureCell.swift */,
+			);
+			name = ResipesTableView;
+			sourceTree = "<group>";
+		};
+		1E6C07491DFF143300F8FA98 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				1E31EC1A1E09DAA40087883E /* Login / Register / ForgotPassword */,
+				1E179B211DF4BF360028EBD4 /* AddRecipe / RecipeInfo */,
+				1E5798C81E088A8200FCC594 /* ResipesTableView */,
+			);
+			name = ViewControllers;
 			sourceTree = "<group>";
 		};
 		1EA6E2FB1DEF83E500E80895 /* Frameworks */ = {
@@ -184,8 +193,7 @@
 				1ED95A761DEB2C4A00DDA7A1 /* AppDelegate.swift */,
 				1E31EC161E09D1F40087883E /* SBKeysAndSegue.swift */,
 				1E31EC181E09D65C0087883E /* SBAlertManager.swift */,
-				1E6C07491DFF143300F8FA98 /* Login ViewControllers */,
-				1E179B211DF4BF360028EBD4 /* Recipes ViewControllers */,
+				1E6C07491DFF143300F8FA98 /* ViewControllers */,
 				1E179B201DF4BF240028EBD4 /* CoreData */,
 				1ED95A7A1DEB2C4A00DDA7A1 /* Main.storyboard */,
 				1ED95A801DEB2C4A00DDA7A1 /* Assets.xcassets */,

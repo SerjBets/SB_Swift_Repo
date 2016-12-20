@@ -11,7 +11,7 @@ import UIKit
 class SBRegisterVC: UIViewController, UITextFieldDelegate, UIAlertViewDelegate {
     
     let alert = SBAlertManager()
-    let registerKeys = SBKeysAndSegue()
+    let keys = SBKeysAndSegue()
     
 //MARK: - IBOutlets
     @IBOutlet weak var userNameTextField: UITextField!
@@ -32,10 +32,10 @@ class SBRegisterVC: UIViewController, UITextFieldDelegate, UIAlertViewDelegate {
     func registerUser() {
         let userInfo = UserDefaults.standard;
         if self.textFieldIsEmpty() == false {
-            userInfo.set(userNameTextField.text,           forKey: registerKeys.kUserName)
-            userInfo.set(userPasswordTextField.text,       forKey: registerKeys.kUserPassword)
-            userInfo.set(confirmPasswordTextField.text,    forKey: registerKeys.kConfirmPassword)
-            userInfo.set(userEmailTextField.text,          forKey: registerKeys.kUserEmail)
+            userInfo.set(userNameTextField.text,           forKey: keys.kUserName)
+            userInfo.set(userPasswordTextField.text,       forKey: keys.kUserPassword)
+            userInfo.set(confirmPasswordTextField.text,    forKey: keys.kConfirmPassword)
+            userInfo.set(userEmailTextField.text,          forKey: keys.kUserEmail)
             alert.errorAlertDismissAction(message: "New user successful registered!")
             userInfo.synchronize()
         }
