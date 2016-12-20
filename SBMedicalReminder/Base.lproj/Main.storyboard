@@ -132,7 +132,7 @@
                                     <color key="titleColor" red="0.40000000600000002" green="0.80000001190000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
-                                    <segue destination="bcx-ya-g1n" kind="presentation" id="tlZ-dW-cet"/>
+                                    <segue destination="bcx-ya-g1n" kind="presentation" identifier="segueRegisterToLogin" id="tlZ-dW-cet"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="obr-ER-Mze">
@@ -264,7 +264,7 @@
                                 </state>
                                 <connections>
                                     <action selector="loginUserAction:" destination="bcx-ya-g1n" eventType="touchUpInside" id="YNd-Xt-2dF"/>
-                                    <segue destination="TcV-bG-FMG" kind="presentation" identifier="segueMainVC" id="Nfz-35-5RS"/>
+                                    <segue destination="TcV-bG-FMG" kind="presentation" identifier="segueLoginToRecipesTable" id="Nfz-35-5RS"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HPZ-V7-WQt">
@@ -275,7 +275,7 @@
                                     <color key="titleColor" red="0.40000000600000002" green="0.80000001190000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
-                                    <segue destination="R9p-ld-05b" kind="presentation" identifier="segueForgotVC" id="BgG-3h-aYl"/>
+                                    <segue destination="R9p-ld-05b" kind="presentation" identifier="segueLoginToForgotPassword" id="BgG-3h-aYl"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w8a-4h-9e2">
@@ -286,7 +286,7 @@
                                     <color key="titleColor" red="0.40000000600000002" green="0.80000001190000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
-                                    <segue destination="VF3-x3-hnK" kind="presentation" identifier="segueRegister" id="tMh-p8-2Rw"/>
+                                    <segue destination="VF3-x3-hnK" kind="presentation" identifier="segueLoginToRegister" id="tMh-p8-2Rw"/>
                                 </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" text="©Copyright by Sergey Bets" borderStyle="line" textAlignment="center" adjustsFontSizeToFit="NO" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="Wcp-BF-R7t">
@@ -358,7 +358,7 @@
                         <barButtonItem key="leftBarButtonItem" systemItem="add" id="ag5-UK-ODZ">
                             <connections>
                                 <action selector="addAction:" destination="UGU-GN-Dqz" id="2ax-gJ-BMZ"/>
-                                <segue destination="WJN-xg-gq8" kind="show" identifier="segueTableToAdd" id="JRF-SN-TDR"/>
+                                <segue destination="WJN-xg-gq8" kind="show" identifier="segueRecipesTableToAdd" id="JRF-SN-TDR"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Edit" id="pPh-a1-L6A">
@@ -374,7 +374,7 @@
                     </refreshControl>
                     <connections>
                         <outlet property="editButton" destination="pPh-a1-L6A" id="WW4-lu-ISh"/>
-                        <segue destination="DVX-SG-cyJ" kind="show" identifier="segueTableRecipeInfo" id="swe-I3-tb9"/>
+                        <segue destination="DVX-SG-cyJ" kind="show" identifier="segueRecipeTableToRecipeInfo" id="swe-I3-tb9"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qGR-Eo-2Ze" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -457,7 +457,7 @@
                                     <color key="titleColor" red="0.40000000600000002" green="0.80000001190000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
-                                    <segue destination="bcx-ya-g1n" kind="presentation" id="ZiE-tk-9F6"/>
+                                    <segue destination="bcx-ya-g1n" kind="presentation" identifier="segueForgotPasswordToLogin" id="ZiE-tk-9F6"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hGo-7W-C32">
@@ -957,7 +957,7 @@
                         <outlet property="periodCourseSlider" destination="sZH-0f-okY" id="4Rt-xp-ILH"/>
                         <outlet property="timeClockLabel" destination="Qyr-j5-Ioe" id="c7d-6Q-n3L"/>
                         <outlet property="timesDaySegControl" destination="cFe-Qp-9MJ" id="Lzz-90-LLC"/>
-                        <segue destination="UGU-GN-Dqz" kind="show" identifier="segueAddToTable" id="AS1-tT-z3u"/>
+                        <segue destination="UGU-GN-Dqz" kind="show" identifier="segueAddToRecipesTable" id="AS1-tT-z3u"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fIr-Jb-6mP" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -969,7 +969,7 @@
         <image name="Logo" width="320" height="480"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="tlZ-dW-cet"/>
+        <segue reference="ZiE-tk-9F6"/>
         <segue reference="AS1-tT-z3u"/>
     </inferredMetricsTieBreakers>
 </document>

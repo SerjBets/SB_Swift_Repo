@@ -72,10 +72,10 @@ class SBLoginVC: UIViewController, UITextFieldDelegate {
     
 //MARK: - segue
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == segueKeys.segueIdentifireTableToAdd {
+        if segue.identifier == segueKeys.segueRecipesTableToAdd {
             _ = segue.destination as! SBAddRecipeController
         }
-        if segue.identifier == segueKeys.segueIdentifierRecipeInfo {
+        if segue.identifier == segueKeys.segueRecipeTableToRecipeInfo {
             let controller = segue.destination as! SBRecipeInfoController
             let recipeInfo = sender as! SBManagedRecipe
             controller.recipeInfo = recipeInfo

@@ -43,7 +43,7 @@ class SBAddRecipeController: UIViewController, UITextFieldDelegate {
     @IBAction func saveAction(_ sender: UIBarButtonItem) {
         if textFieldIsEmpty() != true {
             saveRecipe()
-            performSegue(withIdentifier: segueKeys.segueIdentifierAddToTable, sender: nil)
+            performSegue(withIdentifier: segueKeys.segueAddToRecipesTable, sender: nil)
         }
     }
     
@@ -99,10 +99,10 @@ class SBAddRecipeController: UIViewController, UITextFieldDelegate {
     
 //MARK: - segue
     func prepareForSegue(segue: UIStoryboardSegue, sender: SBManagedRecipe?) {
-        if segue.identifier == segueKeys.segueIdentifierAddToTable {
+        if segue.identifier == segueKeys.segueAddToRecipesTable {
             _ = segue.destination as! SBAddRecipeController
         }
-        if segue.identifier == segueKeys.segueIdentifierRecipeInfo {
+        if segue.identifier == segueKeys.segueRecipeTableToRecipeInfo {
             
         }
     }

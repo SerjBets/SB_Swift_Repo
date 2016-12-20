@@ -41,7 +41,7 @@ class SBRecipesTable: UITableViewController, NSFetchedResultsControllerDelegate 
     }
     
     @IBAction func addAction(_ sender: UIBarButtonItem) {
-        performSegue(withIdentifier: segueKeys.segueIdentifierAddToTable, sender: nil)
+        performSegue(withIdentifier: segueKeys.segueAddToRecipesTable, sender: nil)
     }
     
 //MARK - TableViewDataSourse
@@ -69,7 +69,7 @@ class SBRecipesTable: UITableViewController, NSFetchedResultsControllerDelegate 
     //Select row
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let recipe = fetchedResultsController.object(at: indexPath) as! SBManagedRecipe
-        performSegue(withIdentifier: segueKeys.segueIdentifierRecipeInfo, sender: recipe)
+        performSegue(withIdentifier: segueKeys.segueRecipeTableToRecipeInfo, sender: recipe)
     }
     
     //Delete row
@@ -100,10 +100,11 @@ class SBRecipesTable: UITableViewController, NSFetchedResultsControllerDelegate 
     
 //MARK: - segue
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == segueKeys.segueIdentifireTableToAdd {
+        if segue.identifier == segueKeys.segueRecipesTableToAdd
+        {
             _ = segue.destination as! SBAddRecipeController
         }
-        if segue.identifier == segueKeys.segueIdentifierRecipeInfo {
+        if segue.identifier == segueKeys.segueRecipeTableToRecipeInfo {
             let controller = segue.destination as! SBRecipeInfoController
             let recipeInfo = sender as! SBManagedRecipe
             controller.recipeInfo = recipeInfo
