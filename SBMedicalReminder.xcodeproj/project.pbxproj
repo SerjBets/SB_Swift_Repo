@@ -622,7 +622,7 @@
 				1ED95A9D1DEB2C4A00DDA7A1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		1ED95A9E1DEB2C4A00DDA7A1 /* Build configuration list for PBXNativeTarget "SBMedicalReminder" */ = {
 			isa = XCConfigurationList;
@@ -631,7 +631,7 @@
 				1ED95AA01DEB2C4A00DDA7A1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		1ED95AA11DEB2C4A00DDA7A1 /* Build configuration list for PBXNativeTarget "SBMedicalReminderTests" */ = {
 			isa = XCConfigurationList;
@@ -640,7 +640,7 @@
 				1ED95AA31DEB2C4A00DDA7A1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		1ED95AA41DEB2C4A00DDA7A1 /* Build configuration list for PBXNativeTarget "SBMedicalReminderUITests" */ = {
 			isa = XCConfigurationList;
@@ -649,7 +649,7 @@
 				1ED95AA61DEB2C4A00DDA7A1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
 

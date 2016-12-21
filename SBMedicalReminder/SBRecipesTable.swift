@@ -41,7 +41,7 @@ class SBRecipesTable: UITableViewController, NSFetchedResultsControllerDelegate 
     }
     
     @IBAction func addAction(_ sender: UIBarButtonItem) {
-        performSegue(withIdentifier: segueKeys.segueAddToRecipesTable, sender: nil)
+        performSegue(withIdentifier: segueKeys.segueRecipesTableToAdd, sender: nil)
     }
     
 //MARK - TableViewDataSourse

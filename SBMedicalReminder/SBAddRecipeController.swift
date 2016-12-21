@@ -23,7 +23,7 @@ class SBAddRecipeController: UIViewController, UITextFieldDelegate {
     
     var timer = Timer()
     let alert = SBAlertManager()
-    let segueKeys = SBKeysAndSegue()
+    let keys = SBKeysAndSegue()
     
     
 //MARK: viewController
@@ -43,7 +43,7 @@ class SBAddRecipeController: UIViewController, UITextFieldDelegate {
     @IBAction func saveAction(_ sender: UIBarButtonItem) {
         if textFieldIsEmpty() != true {
             saveRecipe()
-            performSegue(withIdentifier: segueKeys.segueAddToRecipesTable, sender: nil)
+            performSegue(withIdentifier: keys.segueAddToRecipesTable, sender: nil)
         }
     }
     
@@ -80,11 +80,11 @@ class SBAddRecipeController: UIViewController, UITextFieldDelegate {
     
     func textFieldIsEmpty() -> Bool {
         guard medicamentName.text?.isEmpty == false else {
-            alert.errorAlertAction(message: "Enter medicament name!")
+            alert.showAlertFromController(controller: self, message: "Enter medicament name!")
             return true
         }
         guard medicamentType.text?.isEmpty == false else {
-            alert.errorAlertAction(message: "Enter medicament type!")
+            alert.showAlertFromController(controller: self, message: "Enter medicament type!")
             return true
         }
         return false
@@ -99,10 +99,10 @@ class SBAddRecipeController: UIViewController, UITextFieldDelegate {
     
 //MARK: - segue
     func prepareForSegue(segue: UIStoryboardSegue, sender: SBManagedRecipe?) {
-        if segue.identifier == segueKeys.segueAddToRecipesTable {
+        if segue.identifier == keys.segueAddToRecipesTable {
             _ = segue.destination as! SBAddRecipeController
         }
-        if segue.identifier == segueKeys.segueRecipeTableToRecipeInfo {
+        if segue.identifier == keys.segueRecipeTableToRecipeInfo {
             
         }
     }

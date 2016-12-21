@@ -17,6 +17,7 @@ class SBForgotPasswordVC: UIViewController, UITextFieldDelegate {
 //MARK: - IBOutlets
     @IBOutlet weak var userNameTextField: UITextField!
     @IBOutlet weak var userEmailTextField: UITextField!
+    @IBOutlet weak var scrollView: UIScrollView!
     
 //MARK: viewController
     override func viewDidLoad() {
@@ -25,26 +26,39 @@ class SBForgotPasswordVC: UIViewController, UITextFieldDelegate {
     
 //MARK: - Actions
     @IBAction func resetAction(_ sender: UIButton) {
-        resetUserPassword()
+        
+        if resetUserPassword() == true {
+            performSegue(withIdentifier: keys.segueForgotPasswordToLogin, sender: nil)
+        }
     }
     
-    func resetUserPassword() {
+    func resetUserPassword() -> Bool {
         let userInfo = UserDefaults.standard
         let userName = userInfo.string(forKey: keys.kUserName)
         let userEmail = userInfo.string(forKey: keys.kUserEmail)
-        if textFieldIsEmpty() {
+        if textFieldIsEmpty() == false {
             if (userNameTextField.text == userName) && (userEmailTextField.text == userEmail) {
                 let userPassword = userInfo.string(forKey: keys.kUserPassword)
-                alert.errorAlertAction(message:"Your password is \(userPassword!) !")
+                alert.showAlertFromController(controller: self, message:"Your password is \(userPassword!) !")
+                return true
             } else {
-                alert.errorAlertAction(message:"Incorrect user name or password!")
+                alert.showAlertFromController(controller: self, message:"Incorrect user name or password!")
                 userEmailTextField.text = ""
                 userEmailTextField.text = ""
             }
         }
+        return false
     }
     
 //MARK: - TextFieldDelegate
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        scrollView.setContentOffset(CGPoint.init(x: 0, y: 100), animated: true)
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        scrollView.setContentOffset(CGPoint.init(x: 0, y: 0), animated: true)
+    }
+    
     func textFieldShouldReturn(_ textField:UITextField) -> Bool {
         if textField == userNameTextField {
             userEmailTextField.becomeFirstResponder()
@@ -55,15 +69,21 @@ class SBForgotPasswordVC: UIViewController, UITextFieldDelegate {
     }
     
     func textFieldIsEmpty() -> Bool {
-        if (userNameTextField.text?.isEmpty)! {
-            alert.errorAlertAction(message: "Enter user name!")
-            return false
+        guard userNameTextField.text?.isEmpty == false else {
+            alert.showAlertFromController(controller: self, message: "Enter user name!")
+            return true
         }
-        if (userEmailTextField.text?.isEmpty)! {
-            alert.errorAlertAction(message: "Enter user password!")
-            return false
+        guard userEmailTextField.text?.isEmpty == false else {
+            alert.showAlertFromController(controller: self, message: "Enter user password!")
+            return true
         }
-        return true
+        return false
     }
-
+    
+//MARK: - segue
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == keys.segueForgotPasswordToLogin {
+            _ = segue.destination as! SBLoginVC
+        }
+    }
 }

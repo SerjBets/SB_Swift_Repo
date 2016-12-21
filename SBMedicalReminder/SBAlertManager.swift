@@ -11,20 +11,20 @@ import UIKit
 
 class SBAlertManager: UIAlertController, UIAlertViewDelegate {
     
-    func errorAlertAction(message:String) {
-        let alertController = UIAlertController(title: "Error!", message: message, preferredStyle: .alert)
+    func showAlertFromController(controller: UIViewController, message:String) {
+        let alert = UIAlertController(title: "Error!", message: message, preferredStyle: .alert)
         let okAction = UIAlertAction(title: "OK", style: .default)
-        alertController.addAction(okAction)
-        present(alertController, animated: true, completion: nil)
+        alert.addAction(okAction)
+        controller.present(alert, animated: true, completion: nil)
     }
     
-    func errorAlertDismissAction(message:String) {
-        let alertController = UIAlertController(title: "Error!", message: message, preferredStyle: .alert)
+    func showAlertWithDismissController(controller: UIViewController, message:String) {
+        let alert = UIAlertController(title: "Error!", message: message, preferredStyle: .alert)
         let okAction = UIAlertAction(title: "OK", style: .default) { (action:UIAlertAction!) in
             self.dismiss(animated: true, completion: nil)
         }
-        alertController.addAction(okAction)
-        present(alertController, animated: true, completion:nil)
+        alert.addAction(okAction)
+        controller.present(alert, animated: true, completion: nil)
     }
 
 }

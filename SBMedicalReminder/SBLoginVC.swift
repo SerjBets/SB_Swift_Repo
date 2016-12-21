@@ -17,6 +17,7 @@ class SBLoginVC: UIViewController, UITextFieldDelegate {
 //MARK: - IBOutlets
     @IBOutlet weak var userNameTextField: UITextField!
     @IBOutlet weak var userPasswordTextField: UITextField!
+    @IBOutlet weak var scrollView: UIScrollView!
     
 //MARK: viewControllerDelegate
     override func viewDidLoad() {
@@ -26,7 +27,7 @@ class SBLoginVC: UIViewController, UITextFieldDelegate {
 //MARK: - Actions
     @IBAction func loginUserAction(_ sender: UIButton) {
         if loginUser() {
-            
+            performSegue(withIdentifier: keys.segueLoginToRecipesTable, sender: nil)
         }
     }
     
@@ -36,12 +37,12 @@ class SBLoginVC: UIViewController, UITextFieldDelegate {
         let userPassword = userInfo.string(forKey: keys.kUserPassword)
         
         if textFieldIsEmpty() == false {
-            if (userNameTextField.text == userName) || (userPasswordTextField.text == userPassword) {
+            if (userNameTextField?.text == userName) || (userPasswordTextField?.text == userPassword) {
                 return true
             } else {
-                alert.errorAlertAction(message: "Incorrect user name or password!")
-                userNameTextField.text = ""
-                userPasswordTextField.text = ""
+                alert.showAlertFromController(controller: self, message: "Incorrect user name or password!")
+                userNameTextField?.text = ""
+                userPasswordTextField?.text = ""
                 return false
             }
         }
@@ -49,9 +50,17 @@ class SBLoginVC: UIViewController, UITextFieldDelegate {
     }
     
 //MARK: - TextFieldDelegate
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        scrollView.setContentOffset(CGPoint.init(x: 0, y: 100), animated: true)
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        scrollView.setContentOffset(CGPoint.init(x: 0, y: 0), animated: true)
+    }
+    
     func textFieldShouldReturn(_ textField:UITextField) -> Bool {
         if textField == userNameTextField {
-            userPasswordTextField.becomeFirstResponder()
+            userPasswordTextField?.becomeFirstResponder()
         } else {
             textField.resignFirstResponder()
         }
@@ -60,11 +69,11 @@ class SBLoginVC: UIViewController, UITextFieldDelegate {
     
     func textFieldIsEmpty() -> Bool {
         guard userNameTextField.text?.isEmpty == false else {
-            alert.errorAlertAction(message: "Enter user name!")
+            alert.showAlertFromController(controller: self, message: "Enter user name!")
             return true
         }
         guard userPasswordTextField.text?.isEmpty == false else {
-            alert.errorAlertAction(message: "Enter user password!")
+            alert.showAlertFromController(controller: self, message: "Enter user password!")
             return true
         }
         return false
